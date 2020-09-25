@@ -1,0 +1,377 @@
+PARKED CODE:
+
+
+
+
+
+function xpwheel:PLAYER_ENTERING_WORLD(self,event,...)
+    --xpwheel:OnLoad()
+    
+   
+end
+
+local parseArg
+function xpwheel:AZERITE_ITEM_EXPERIENCE_CHANGED(self,event,...)
+    local oldAp, newAp = ...
+    if C_AzeriteItem.HasActiveAzeriteItem()then
+    local artifactXP, xpForNextPoint = C_AzeriteItem.GetAzeriteItemXPInfo(C_AzeriteItem.FindActiveAzeriteItem())  
+    artifactPointsPercent = (artifactXP/xpForNextPoint)*100
+    
+    for i = 0,360,1 do
+        local temp = Barzeroing2(i)
+        xpwheel.percRING2_[temp]:SetTextColor(0.2,0.2,0.2,1)
+    end
+    for i = 0,(math.ceil(artifactPointsPercent*3.6)),1 do
+    local temp = Barzeroing2(i)
+        xpwheel.percRING2_[temp]:SetTextColor(0.761, 0.698, 0.502,1)
+        xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.ceil(i/3.6)).."%") 
+    end
+    local timeincrement = 0.2 -- failed numberclimb delay effect
+    for i = (math.ceil((oldAp/xpForNextPoint)*360)),(math.ceil(artifactPointsPercent*3.6)),1 do
+        parseArg = i
+        --xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.floor(i/3.6)).."%") 
+        C_Timer.After(timeincrement, CountToNewAP)
+        timeincrement = timeincrement+0.2
+    end
+end
+
+    --print("something")
+end
+
+function xpwheel:AZERITE_ITEM_POWER_LEVEL_CHANGED(self,event,...)
+    local oldAp, newAp = ...
+    if C_AzeriteItem.HasActiveAzeriteItem()then
+    local artifactXP, xpForNextPoint = C_AzeriteItem.GetAzeriteItemXPInfo(C_AzeriteItem.FindActiveAzeriteItem())  
+    artifactPointsPercent = (artifactXP/xpForNextPoint)*100
+    for i = 0,360,1 do
+        local temp = Barzeroing2(i)
+        xpwheel.percRING2_[temp]:SetTextColor(0.2,0.2,0.2,1)
+    end
+    for i = 0,(math.ceil(artifactPointsPercent*3.6)),1 do
+        local temp = Barzeroing2(i)
+        xpwheel.percRING2_[temp]:SetTextColor(0.761, 0.698, 0.502,1)
+        xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.ceil(i/3.6)).."%") 
+    end
+    local timeincrement = 0.2 -- another bit of the failed numberclimb mentioned in the other azerite set function
+    for i = (math.ceil((oldAp/xpForNextPoint)*360)),(math.ceil(artifactPointsPercent*3.6)),1 do
+        parseArg = i
+        --xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.floor(i/3.6)).."%") 
+        C_Timer.After(timeincrement,CountToNewAP)
+        timeincrement = timeincrement+0.2
+    end
+end
+
+end
+function CountToNewAP() -- dont know if this is used, but i think its for the tooltip
+    local i = parseArg
+    if C_AzeriteItem.HasActiveAzeriteItem()then
+    xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.ceil(i/3.6)).."%")
+    end
+end
+
+
+function xpwheel:PLAYER_XP_UPDATE(self,event,...)
+    
+    XP = UnitXP("player")
+    XPMax = UnitXPMax("player")
+    xppercent = (XP/XPMax)*100
+    restVal = GetXPExhaustion("player")
+    overlap = 10
+
+    --print((restVal/XPMax)*360)
+    xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")
+    if C_AzeriteItem.HasActiveAzeriteItem()then
+    xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.ceil(artifactPointsPercent)).."%")
+    end
+
+    if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then
+    for i = 0,(math.ceil(xppercent*3.6)),1 do
+    
+        local temp = Barzeroing(i)
+        --print(restVal)
+        if(restVal == nil) then
+            xpwheel.percRING_[temp]:SetTextColor(0.55,0,0.58,1)
+            --xpwheel.percRINGRested_[i]:SetTextColor(0.2,0.2,0.2,0.0)         
+        else
+            
+
+            xpwheel.percRING_[temp]:SetTextColor(0.0, 0.39, 0.88, 1.0)
+            --xpwheel.percRING_[i]:SetTextColor(0.172,0.458,1,1)
+    
+        end
+        
+    end
+    --[[
+    for i = (math.floor(xppercent*3.6)),(math.floor(xppercent*3.6))+overlap,1 do
+    
+        xpwheel.percRING_[i]:SetTextColor(0.2,0.2,0.2,0.0)        
+
+    
+    end]]
+
+    for i = (math.ceil(xppercent*3.6)),360,1 do
+        local temp = Barzeroing(i)
+            xpwheel.percRING_[temp]:SetTextColor(0.2,0.2,0.2,1)
+        
+
+        
+    end
+    if not (restVal == nil) then
+    for i = (math.ceil((xppercent)*3.6)),(math.ceil((xppercent+(restVal/XPMax)*100)*3.6)),1 do
+        --print(math.ceil((xppercent+(restVal/XPMax))*3.6)>=i)
+        --[[ if(restVal == nil) then
+        
+
+        
+            ---never reached
+            xpwheel.percRING_[i]:SetTextColor(0.2,0.2,0.2,0.0)
+        
+        else
+            local k = 0.12
+            local l = 0.10
+            for x = getn(xpwheel.percRINGRested_), 1, -1 do
+                xpwheel.percRINGRested_[x]:SetTextColor(0.0,0.0,0.0,0.0)
+            end
+            for elements in pairs (xpwheel.percRINGRested_) do
+                --if not (xpwheel.percRINGRested_[elements] == nil) then
+                xpwheel.percRINGRested_[elements]:SetTextColor(0.0,0.0,0.0,0.0)
+                --xpwheel.percRINGRested_[elements]:SetText(" ")
+                --xpwheel.percRINGRested_[elements] = nil
+                --print(elements)
+                --end
+            end
+            for j = i,(math.ceil((xppercent+(restVal/XPMax)*100)*3.6)),1 
+            do 
+
+                xpwheel.percRINGRested_[i] = xpwheel:CreateFontString(nil,"ARTWORK") 
+                xpwheel.percRINGRested_[i]:SetFont("Fonts\\ARIALN.ttf", 65)
+                --print(math.sin(i)*100*size3,math.cos(i)*100*size3)
+                xpwheel.percRINGRested_[i]:SetPoint(xpwheel:GetPoint(),math.sin((i*math.pi)/180)*100*size3,math.cos((i*math.pi)/180)*100*size3)
+                
+                xpwheel.percRINGRested_[i]:SetWidth(100)
+                xpwheel.percRINGRested_[i]:SetHeight(100)
+                xpwheel.percRINGRested_[i]:SetText("\•")
+
+                if(j+12<=(math.ceil((xppercent+(restVal/XPMax)*100)*3.6))) then
+                    xpwheel.percRINGRested_[i]:SetTextColor(0.2,0.2,0.20+k,0.1)
+                    k = k-0.01
+                elseif(l <= 0.2) then
+                    xpwheel.percRINGRested_[i]:SetTextColor(0,0.19,0.32,0.0+l)                                        
+                    l = l+0.01
+                else
+                    xpwheel.percRINGRested_[i]:SetTextColor(0,0.19,0.32,0.1)
+                end
+
+
+            end
+
+           
+            xpwheel.percRING_[i]:SetTextColor(0.2,0.2,0.2,0.2)
+            
+    
+        end ]]
+        local temp = Barzeroing(i)
+        xpwheel.percRING_[temp]:SetTextColor(0,0.19,0.32,0.1)
+    end
+    else
+        for i = (math.ceil((xppercent)*3.6)),360,1 do --- se comment in around line 619
+        for j = i, 0,-1 do
+            local temp = Barzeroing(j)
+            if not (xpwheel.percRING_[temp]:GetTextColor(0.55,0,0.58,1)) then 
+            
+                xpwheel.percRING_[temp]:SetTextColor(0.55,0,0.58,1)
+            end
+            if(j==0)then
+                i = 0
+            end -- also see comment in line 619 + a bit
+        end
+
+    end
+    end
+
+    for i = 360, 0,-1 do
+        local temp = Barzeroing(i)
+        xpwheel.HonorBarRing:Update();
+        xpwheel.ReputationBarRing:Update();
+        if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+        xpwheel.percRING_[temp]:Show()
+        xpwheel.ReputationBarRing[temp]:Hide()
+        xpwheel.HonorBarRing[temp]:Hide()
+        else
+            xpwheel.percRING_[temp]:Hide()
+            xpwheel.ReputationBarRing[temp]:Show()
+            xpwheel.HonorBarRing[temp]:Hide()
+            local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
+            xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
+            xpwheel.percCenter:SetPoint(xpwheel.percCenter:GetPoint(),0,10)
+        end
+    end
+
+else
+    for i = 360, 0,-1 do
+        local temp = Barzeroing(i)
+        xpwheel.percRING_[temp]:Hide()
+        if(xpwheel.ReputationBarRing:ShouldBeVisible())then
+            xpwheel.ReputationBarRing[temp]:Show()
+            local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
+            xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
+            xpwheel.percCenter:SetPoint(xpwheel.percCenter:GetPoint(),0,10)
+        end
+        if(xpwheel.HonorBarRing:ShouldBeVisible())then
+            xpwheel.HonorBarRing[temp]:Show()
+            xpwheel.percCenter:SetText("Hornor: "..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%")
+
+        end
+
+    end
+
+end
+
+--- ARTIFACT BAR BEGINS
+for i = 0,360,1 do
+    local temp = Barzeroing2(i)
+    xpwheel.percRING2_[temp]:SetTextColor(0.2,0.2,0.2,1)
+end
+if C_AzeriteItem.HasActiveAzeriteItem()then
+for i = 0,(math.ceil(artifactPointsPercent*3.6)),1 do
+    local temp = Barzeroing2(i)
+--[[     local r = 0.95 
+    local g = 0.90 
+    local b = 0.60
+    xpwheel.percRING2_[i]:SetTextColor(r, g, b,1) 
+ ]]
+xpwheel.percRING2_[temp]:SetTextColor(ARTIFACT_BAR_COLOR:GetRGB())
+ --xpwheel.percRING2_[i]:SetTextColor(0.461, 0.398, 0.202,1) 
+end
+--- ARTIFACTBAR ENDS
+
+end
+end
+
+function xpwheel:UPDATE_EXHAUSTION(self,event,...)
+    XP = UnitXP("player")
+    XPMax = UnitXPMax("player")
+    xppercent = (XP/XPMax)*100
+    restVal = GetXPExhaustion("player")
+    overlap = 10
+    xpwheel.ReputationBarRing:Update();
+    xpwheel.HonorBarRing:Update();
+    
+
+
+    if C_AzeriteItem.HasActiveAzeriteItem()then
+    xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.ceil(artifactPointsPercent)).."%")
+    end
+    
+    if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then
+        xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")
+    for i = 0,(math.ceil(xppercent*3.6)),1 do
+        local temp = Barzeroing(i)
+   
+        if(restVal == nil) then
+            xpwheel.percRING_[temp]:SetTextColor(0.55,0,0.58,1)
+            
+            
+
+
+            xpwheel.percRING_[temp]:SetTextColor(0.0, 0.39, 0.88, 1.0)
+         
+        end
+        
+    end
+
+    for i = (math.ceil(xppercent*3.6)),360,1 do
+        local temp = Barzeroing(i)
+            xpwheel.percRING_[temp]:SetTextColor(0.2,0.2,0.2,1)
+        
+
+        
+    end
+    if not (restVal == nil) then
+    for i = (math.ceil((xppercent)*3.6)),(math.ceil((xppercent+(restVal/XPMax)*100)*3.6)),1 do
+        local temp = Barzeroing(i)
+        xpwheel.percRING_[temp]:SetTextColor(0,0.19,0.32,0.1)
+    end
+    else
+        for i = (math.ceil((xppercent)*3.6)),360,1 do -- once again look at comment about 619
+        for j = i, 0,-1 do
+            local temp = Barzeroing(j)
+            if not (xpwheel.percRING_[temp]:GetTextColor( 0.55,0,0.58,1)) then 
+            
+                xpwheel.percRING_[temp]:SetTextColor(0.55,0,0.58,1)
+            end
+            if(j==0)then -- again line about 619 + a bit
+            i = 0
+            end
+        end
+    end
+    end
+
+    for i = 360, 0,-1 do
+        xpwheel.HonorBarRing:Update();
+        xpwheel.ReputationBarRing:Update();
+        local temp = Barzeroing(i)
+        if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+        xpwheel.percRING_[temp]:Show()
+        xpwheel.ReputationBarRing[temp]:Hide()
+        xpwheel.HonorBarRing[temp]:Hide()
+        else
+            xpwheel.percRING_[temp]:Hide()
+            xpwheel.ReputationBarRing[temp]:Show()
+            xpwheel.HonorBarRing[temp]:Hide()
+            local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
+            xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
+            xpwheel.percCenter:SetPoint(xpwheel.percCenter:GetPoint(),0,10)
+        end
+    end
+    
+else
+    for i = 360, 0,-1 do
+        local temp = Barzeroing(i)
+        xpwheel.percRING_[temp]:Hide()
+        if(xpwheel.ReputationBarRing:ShouldBeVisible())then
+            xpwheel.ReputationBarRing[temp]:Show()
+            local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
+            xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
+            xpwheel.percCenter:SetPoint(xpwheel.percCenter:GetPoint(),0,10)
+        end
+        if(xpwheel.HonorBarRing:ShouldBeVisible())then
+            xpwheel.HonorBarRing[temp]:Show()
+            xpwheel.percCenter:SetText("Hornor: "..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%")
+
+        end
+
+    end
+    
+
+end
+    
+--- ARTIFACT BAR BEGINS
+for i = 0,360,1 do
+    local temp = Barzeroing2(i)
+    xpwheel.percRING2_[temp]:SetTextColor(0.2,0.2,0.2,1)
+end
+
+if C_AzeriteItem.HasActiveAzeriteItem()then
+for i = 0,(math.ceil(artifactPointsPercent*3.6)),1 do
+--[[     local r = 0.95 
+    local g = 0.90 
+    local b = 0.60
+    xpwheel.percRING2_[i]:SetTextColor(r, g, b,1)  ]]
+    --xpwheel.percRING2_[i]:SetTextColor(0.761, 0.698, 0.502,1) 
+    local temp = Barzeroing2(i)
+
+    xpwheel.percRING2_[temp]:SetTextColor(ARTIFACT_BAR_COLOR:GetRGB())
+ --xpwheel.percRING2_[i]:SetTextColor(0.461, 0.398, 0.202,1)
+end
+--- ARTIFACTBAR ENDS
+end
+
+end
+
+
+
+
+
+
+
