@@ -1591,7 +1591,7 @@ SlashCmdList["HELP"] = function(...)
 
  print("/ZurichoPaladin -> Manually Swap (on/off) Paladin Colours")
  print("/ZurichoDruid -> Manually Swap (on/off) Druid Colours")
- print("/ZurichoPaladin -> Manually Swap (on/off) Class Colours")
+ print("/ZurichoClassColor -> Manually Swap (on/off) Class Colours")
  print("If no colour is chosen, it defaults to Faction Colours")
  print("/ZurichoStance -> Manually Swap (on/off) StanceBarFrame On or Off")
 
