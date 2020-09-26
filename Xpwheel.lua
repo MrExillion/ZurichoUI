@@ -102,6 +102,7 @@ xpwheel:RegisterEvent("ZONE_CHANGED");
 xpwheel:RegisterEvent("ZONE_CHANGED_NEW_AREA");
 xpwheel:RegisterEvent("ADDON_LOADED")
 xpwheel:RegisterEvent("DISABLE_XP_GAIN")
+xpwheel:RegisterEvent("PLAYER_LEVEL_UP");
 xpwheel:RegisterEvent("ENABLE_XP_GAIN")
 xpwheel:RegisterEvent("PET_BATTLE_OPENING_START");
 xpwheel:RegisterEvent("PET_BATTLE_OVER");
@@ -432,9 +433,15 @@ function xpwheel:OnEvent(self,event, ...)
     
 	if ( event == "HONOR_XP_UPDATE" or event == "ZONE_CHANGED"
             or event == "ZONE_CHANGED_NEW_AREA" or event == "CVAR_UPDATE" or event == "UPDATE_EXHAUSTION" or event == "PLAYER_XP_UPDATE" 
-            or event == "UPDATE_FACTION" or event == "DISABLE_XP_GAIN" or event == "ENABLE_XP_GAIN" or event == "CVAR_UPDATE") then
+            or event == "UPDATE_FACTION" or event == "DISABLE_XP_GAIN" or event == "ENABLE_XP_GAIN" or event == "CVAR_UPDATE" or event == "PLAYER_LEVEL_UP") then
                self:SetXPBar() 
-
+               if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+                xpwheel.playerLevel:SetText(UnitLevel("player"))
+                xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
+                else
+                    xpwheel.playerLevel:SetText("Cap")
+                    xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
+                end
 --[[ 
         self.HonorBarRing:Update();
         if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then 
@@ -738,57 +745,7 @@ xpwheel:SetScript("OnUpdate", function() update() end)
 
 function xpwheel:OnLoad() 
 
---[[ 
-    
 
-
-
-
-
-    --print("Loaded")
- MainMenuBarArtFrameBackground:Hide()
- MainMenuBarArtFrame.LeftEndCap:Hide()
- MainMenuBarArtFrame.PageNumber:Hide()
- MainMenuBarArtFrame.RightEndCap:Hide()
- --AchievementMicroButton:Hide()
- ActionBarDownButton:Hide()
- ActionBarUpButton:Hide()
-
- ActionButton2:Hide()
- ActionButton3:Hide()
- ActionButton4:Hide()
- ActionButton5:Hide()
- ActionButton6:Hide()
- ActionButton7:Hide()
- ActionButton8:Hide()
- ActionButton9:Hide()
- ActionButton10:Hide()
- ActionButton11:Hide()
- ActionButton12:Hide()
- MultiBarBottomLeftButton1:Hide()
- MultiBarBottomLeftButton2:Hide()
- MultiBarBottomLeftButton3:Hide()
- MultiBarBottomLeftButton4:Hide()
- MultiBarBottomLeftButton5:Hide()
- MultiBarBottomLeftButton6:Hide()
- MultiBarBottomLeftButton7:Hide()
- MultiBarBottomLeftButton8:Hide()
- MultiBarBottomLeftButton9:Hide()
- MultiBarBottomLeftButton10:Hide()
- MultiBarBottomLeftButton11:Hide()
- MultiBarBottomLeftButton12:Hide()
- MultiBarBottomRightButton1:Hide()
- MultiBarBottomRightButton2:Hide()
- MultiBarBottomRightButton3:Hide()
- MultiBarBottomRightButton4:Hide()
- MultiBarBottomRightButton5:Hide()
- MultiBarBottomRightButton6:Hide()
- MultiBarBottomRightButton7:Hide()
- MultiBarBottomRightButton8:Hide()
- MultiBarBottomRightButton9:Hide()
- MultiBarBottomRightButton10:Hide()
- MultiBarBottomRightButton11:Hide()
- MultiBarBottomRightButton12:Hide()]]
 end 
 
 
