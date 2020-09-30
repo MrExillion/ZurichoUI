@@ -105,6 +105,7 @@ function UtilitySet2()
 		ActionButton11:Hide()
         ActionButton12:Hide()
         RegisterAttributeDriver(ActionButton6, "visibility", false)
+        
         RegisterAttributeDriver(ActionButton7, "visibility", false)
         RegisterAttributeDriver(ActionButton8, "visibility", false)
         RegisterAttributeDriver(ActionButton9, "visibility", false)
@@ -346,6 +347,40 @@ end);
     function frame:Update()
         
         --_G["ObjectiveTrackerFrame"]:SetHeight(800)
+
+        ActionButton6:Hide()
+ ActionButton7:Hide()
+ ActionButton8:Hide()
+ ActionButton9:Hide()
+ ActionButton10:Hide()
+ ActionButton11:Hide()
+ ActionButton12:Hide()
+
+
+
+
+ MultiBarBottomLeftButton1:Hide()
+ MultiBarBottomLeftButton2:Hide()
+ MultiBarBottomLeftButton3:Hide()
+ MultiBarBottomLeftButton4:Hide()
+ MultiBarBottomLeftButton5:Hide()
+ MultiBarBottomRightButton1:Hide()
+ MultiBarBottomRightButton2:Hide()
+ MultiBarBottomRightButton3:Hide()
+ MultiBarBottomRightButton4:Hide()
+ MultiBarBottomRightButton5:Hide()
+ MultiBarRightButton1:Hide()
+ MultiBarRightButton2:Hide()
+ MultiBarRightButton3:Hide()
+ MultiBarRightButton4:Hide()
+ MultiBarRightButton5:Hide()
+
+ MultiBarLeftButton1:Hide()
+ MultiBarLeftButton2:Hide()
+ MultiBarLeftButton3:Hide()
+ MultiBarLeftButton4:Hide()
+ MultiBarLeftButton5:Hide()
+
 
     end
 
