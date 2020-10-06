@@ -262,8 +262,38 @@ if (C_AzeriteItem.HasActiveAzeriteItem()) then
             reactionText = "|c0000FFFF (Exalted)"
         end
         GameTooltip:AddLine(reactionText,FACTION_BAR_COLORS[reaction].r,FACTION_BAR_COLORS[reaction].g,FACTION_BAR_COLORS[reaction].b,1,true)   
-        GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
-        GameTooltip:AddLine("Reputation Points: "..tostring(value).."/"..tostring(maxBar).." ("..tostring(math.ceil((value/maxBar)*100)).."%)", 1,1,1,1,true)
+
+        if(reaction == 1) then
+            GameTooltip:AddLine(name.." ("..tostring((maxBar)-(value)).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(36000-((maxBar)-(value))).."/"..tostring(-maxBar+30000).." ("..tostring(math.ceil(((36000-((maxBar)-(value)))/(-maxBar+30000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 2) then
+            GameTooltip:AddLine(name.." ("..tostring((maxBar)-(value)).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(9000-((maxBar)-(value))).."/"..tostring(-maxBar+9000).." ("..tostring(math.ceil(((9000-((maxBar)-(value)))/(-maxBar+9000))*100)).."%)", 1,1,1,1,true)
+        elseif(reaction == 3) then
+            GameTooltip:AddLine(name.." ("..tostring((maxBar)-(value)).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(3000-((maxBar)-(value))).."/"..tostring(-maxBar+3000).." ("..tostring(math.ceil(((3000-((maxBar)-(value)))/(-maxBar+3000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 4) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value).."/"..tostring(maxBar).." ("..tostring(math.ceil(((value)/(maxBar))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 5) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value-3000).."/"..tostring(maxBar-3000).." ("..tostring(math.ceil(((value-3000)/(maxBar-3000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 6) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value-9000).."/"..tostring(maxBar-9000).." ("..tostring(math.ceil(((value-9000)/(maxBar-9000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 7) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value-21000).."/"..tostring(maxBar-21000).." ("..tostring(math.ceil(((value-21000)/(maxBar-21000))*100)).."%)", 1,1,1,1,true)
+        else
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value).."/"..tostring(maxBar).." ("..tostring(math.ceil((value/maxBar)*100)).."%)", 1,1,1,1,true)
+        end
+        
         
         
     else
@@ -898,27 +928,35 @@ function xpwheel:SetXPBar()
                 if(reaction == 1)then
                     --[[ hated ]]
                     reacting = "|c00CC2222 Hat\n-ed"
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((36000-((maxBar)-(value)))/(-maxBar+30000))*100)).."%")
                 elseif(reaction == 2)then
                     --[[ hostile ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((9000-((maxBar)-(value)))/(-maxBar+9000))*100)).."%")
                     reacting = "|c00FF0000 Hos\n-tile"
                 elseif(reaction == 3)then
                     --[[ unfriendly ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((3000-((maxBar)-(value)))/(-maxBar+3000))*100)).."%")
                     reacting = "|c00ee6622 Unfri-\nendly"
                 elseif(reaction == 4)then
                     --[[ neutral ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
                     reacting = "Neu-\ntral"
                     xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
                 elseif(reaction == 5)then
                     --[[ friendly ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((value-3000)/(maxBar-3000))*100)).."%")
                     reacting = "|c0000FF00 Fri\n-endly"
                 elseif(reaction == 6)then
                     --[[ honored ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((value-9000)/(maxBar-9000))*100)).."%")
                     reacting = "|c0000ff88 Hon-\nored"
                 elseif(reaction == 7)then
                     --[[ Revered ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((value-21000)/(maxBar-21000))*100)).."%")
                     reacting = "|c0000ffcc Rev-\nered"
                 elseif(reaction == 8)then
                     --[[ exalted ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
                     reacting = "|c0000FFFF Exa-\nlted"
                 else
                     xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")
