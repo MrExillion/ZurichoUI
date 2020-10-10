@@ -45,7 +45,23 @@ factionGroupColor["ALLIANCE"] = {r = 0, g = 0.678, b = 0.937, a = 1}
 factionGroupColor["ZODIACBLUE"] = "|c00162c57"
 factionGroupColor["DYNAMIC"] = {r = 1, g = 1, b = 1, a = 1}  
 
-classColorPaladin = true
+
+--[[ if(ClassColorPaladin==nil) then
+SetCVar(ClassColorPaladin,false)
+end
+
+if(ClassColorDruid==nil) then
+SetCVar(ClassColorDruid,false)
+end
+
+if(ClassColorAll==nil) then
+SetCVar(ClassColorAll,false)
+end
+
+if(StanceShow==nil) then
+SetCVar(CtanceShow,false)
+end ]]
+
 
 local localizedClass, englishClass, classIndex = UnitClass("Player");
 
@@ -460,7 +476,10 @@ xpwheel.percRINGRested_ = {}
 local reputationCheckBox = ReputationDetailMainScreenCheckBox:GetScript("OnClick")
 
 function xpwheel:OnEvent(self,event, ...)
-    
+    if(event == "CVAR_UPDATE")then 
+        xpwheel:SetXPBar()
+    end
+
 	if ( event == "HONOR_XP_UPDATE" or event == "ZONE_CHANGED"
             or event == "ZONE_CHANGED_NEW_AREA" or event == "CVAR_UPDATE" or event == "UPDATE_EXHAUSTION" or event == "PLAYER_XP_UPDATE" 
             or event == "UPDATE_FACTION" or event == "DISABLE_XP_GAIN" or event == "ENABLE_XP_GAIN" or event == "CVAR_UPDATE" or event == "PLAYER_LEVEL_UP") then
@@ -526,6 +545,7 @@ function xpwheel:OnEvent(self,event, ...)
         ]]
     end 
     if ( event == "PLAYER_ENTERING_WORLD" ) then
+        
         honorLevel = UnitHonorLevel("player")
         xpwheel.Background = CreateFrame("Frame","XpWheelBackground",xpwheel)
         --handleStanceBar()
@@ -740,10 +760,40 @@ xpwheelOverlay:SetFrameLevel(2)
     end 
 
 if(event == "ADDON_LOADED")then
+    
+    if(ClassColorPaladin ~= true or ClassColorPaladin ~= false or ClassColorDruid ~= true or ClassColorDruid ~= false or ClassColorAll ~= true or ClassColorAll ~= false or StanceShow ~= true or StanceShow ~= false) then
+    if(ClassColorPaladin ~= true or ClassColorPaladin ~= false) then
+        --print(classColorPaladin)
+        --SetCVar("classColorPaladin", false, "scriptCVar");
+        ClassColorPaladin = false
+        --print(classColorPaladin)
+        end
+        
+        if(classColorDruid ~= true or classColorDruid ~= false) then
+        ClassColorDruid = false
+        --SetCVar("classColorDruid", false, "scriptCVar");
+        end
+        
+        if(classColorAll ~= true or classColorAll ~= false) then
+        ClassColorAll = false
+        --SetCVar("classColorAll", false, "scriptCVar");
+        end
+        
+        if(stanceShow ~= true or stanceShow ~= false) then
+        StanceShow = false
+        --SetCVar("stanceShow", false, "scriptCVar");
+        end
+        --ReloadUI();
 
+        --print("Addon Attempted to Install")
+        --print(stanceShow)
+        handleStanceBar()
+    end
     xpwheel:OnLoad()
     handleStanceBar()
 
+
+        
 end
 
 
@@ -783,7 +833,7 @@ end
 
 function OnUpdate()
 
-    
+  
 
 
 
@@ -1586,7 +1636,7 @@ SlashCmdList["HELP"] = function(...)
 
  print("/ZurichoPaladin -> Manually Swap (on/off) Paladin Colours")
  print("/ZurichoDruid -> Manually Swap (on/off) Druid Colours")
- print("/ZurichoPaladin -> Manually Swap (on/off) Class Colours")
+ print("/ZurichoClassColor -> Manually Swap (on/off) Class Colours")
  print("If no colour is chosen, it defaults to Faction Colours")
  print("/ZurichoStance -> Manually Swap (on/off) StanceBarFrame On or Off")
 
