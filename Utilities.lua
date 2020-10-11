@@ -119,10 +119,10 @@ end
 
     frame:RegisterEvent("PLAYER_ENTERING_WORLD");
 
-    _G["ObjectiveTrackerFrame"]:ClearAllPoints()
+--[[     _G["ObjectiveTrackerFrame"]:ClearAllPoints()
     _G["ObjectiveTrackerFrame"]:SetHeight(10)
     _G["ObjectiveTrackerFrame"]:SetScale(0.8)
-    _G["ObjectiveTrackerFrame"]:SetSize(_G["ObjectiveTrackerFrame"]:GetWidth()*0.8,_G["ObjectiveTrackerFrame"]:GetHeight()*0.5)
+    _G["ObjectiveTrackerFrame"]:SetSize(_G["ObjectiveTrackerFrame"]:GetWidth()*0.8,_G["ObjectiveTrackerFrame"]:GetHeight()*0.5) ]]
     frame:SetScript("OnEvent", function(self, event, ...)
         return self[event] and self[event](self, ...)
     end)

@@ -210,7 +210,7 @@ function frame:PLAYER_ENTERING_WORLD(self,event,...)
         self:SetMovable(true)
         self:SetUserPlaced(true)
         self:ClearAllPoints()
-        self:SetPoint("CENTER", UIParent, "CENTER",GetScreenWidth()/2+75,100)
+        self:SetPoint("CENTER", UIParent, "CENTER",GetScreenWidth()/2+75,0)
         self:SetScale(0.8) -- optional
         self:SetWidth(300) -- optional
         self:SetHeight(800) -- optional
