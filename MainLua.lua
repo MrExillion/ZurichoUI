@@ -183,9 +183,49 @@ end
 
 
 function frame:PLAYER_ENTERING_WORLD(self,event,...)
+--[[     point, relativeTo, relativePoint, xOfs, yOfs = _G["ObjectiveTrackerFrame"]:GetPoint()
+    _G["ObjectiveTrackerFrame"]:ClearAllPoints()
+    
+    --UIPARENT_MANAGED_FRAME_POSITIONS['ObjectivesTrackerFrame'] = false
+    _G["ObjectiveTrackerFrame"]:SetHeight(10)
+    _G["ObjectiveTrackerFrame"]:SetScale(0.8)
+    _G["ObjectiveTrackerFrame"]:SetSize(_G["ObjectiveTrackerFrame"]:GetWidth()*0.8,_G["ObjectiveTrackerFrame"]:GetHeight()*0.5)
+    
+    print(point, relativeTo, relativePoint, xOfs, yOfs)
+    --print(relativePoint)
+
+    --xOfs = xOfs + 80;
+    --print(xOfs)
+    --SetPoint("point" [, region or nil] [, "relativePoint"] [, offsetX, offsetY]
+    
+    point, relativeTo, relativePoint, xOfs, yOfs = _G["ObjectiveTrackerFrame"]:GetPoint() ]]
+
+
+    local moving
+    hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self)
+        if moving then
+            return
+        end
+        moving = true
+        self:SetMovable(true)
+        self:SetUserPlaced(true)
+        self:ClearAllPoints()
+        self:SetPoint("CENTER", UIParent, "CENTER",GetScreenWidth()/2+75,100)
+        self:SetScale(0.8) -- optional
+        self:SetWidth(300) -- optional
+        self:SetHeight(800) -- optional
+        self:SetMovable(false)
+        moving = nil
+    end)
 
 
 
+    --print(point, relativeTo, relativePoint, xOfs, yOfs)
+    
+    
+    
+    
+    
     if (englishClass == "PALADIN" or englishClass == "SHAMAN" or englishClass ~= nil)then
 
 
