@@ -7,6 +7,8 @@
  UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarLeft'] = nil
  UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarRight'] = nil
 
+
+ 
 local frame = CreateFrame('Frame', 'myActionBar', UIParent)
 frame:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 150)
 frame:SetWidth(220)
@@ -200,7 +202,7 @@ function frame:PLAYER_ENTERING_WORLD(self,event,...)
     
     point, relativeTo, relativePoint, xOfs, yOfs = _G["ObjectiveTrackerFrame"]:GetPoint() ]]
 
-
+    SHOW_MULTI_ACTIONBAR_1=true SHOW_MULTI_ACTIONBAR_2=true SHOW_MULTI_ACTIONBAR_3=true SHOW_MULTI_ACTIONBAR_4=true InterfaceOptions_UpdateMultiActionBars()
     local moving
     hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self)
         if moving then

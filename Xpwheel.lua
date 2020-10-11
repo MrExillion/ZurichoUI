@@ -477,6 +477,7 @@ local reputationCheckBox = ReputationDetailMainScreenCheckBox:GetScript("OnClick
 
 function xpwheel:OnEvent(self,event, ...)
     if(event == "CVAR_UPDATE")then 
+
         xpwheel:SetXPBar()
     end
 
