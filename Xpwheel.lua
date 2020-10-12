@@ -45,7 +45,23 @@ factionGroupColor["ALLIANCE"] = {r = 0, g = 0.678, b = 0.937, a = 1}
 factionGroupColor["ZODIACBLUE"] = "|c00162c57"
 factionGroupColor["DYNAMIC"] = {r = 1, g = 1, b = 1, a = 1}  
 
-classColorPaladin = true
+
+--[[ if(ClassColorPaladin==nil) then
+SetCVar(ClassColorPaladin,false)
+end
+
+if(ClassColorDruid==nil) then
+SetCVar(ClassColorDruid,false)
+end
+
+if(ClassColorAll==nil) then
+SetCVar(ClassColorAll,false)
+end
+
+if(StanceShow==nil) then
+SetCVar(CtanceShow,false)
+end ]]
+
 
 local localizedClass, englishClass, classIndex = UnitClass("Player");
 
@@ -102,6 +118,7 @@ xpwheel:RegisterEvent("ZONE_CHANGED");
 xpwheel:RegisterEvent("ZONE_CHANGED_NEW_AREA");
 xpwheel:RegisterEvent("ADDON_LOADED")
 xpwheel:RegisterEvent("DISABLE_XP_GAIN")
+xpwheel:RegisterEvent("PLAYER_LEVEL_UP");
 xpwheel:RegisterEvent("ENABLE_XP_GAIN")
 xpwheel:RegisterEvent("PET_BATTLE_OPENING_START");
 xpwheel:RegisterEvent("PET_BATTLE_OVER");
@@ -261,8 +278,38 @@ if (C_AzeriteItem.HasActiveAzeriteItem()) then
             reactionText = "|c0000FFFF (Exalted)"
         end
         GameTooltip:AddLine(reactionText,FACTION_BAR_COLORS[reaction].r,FACTION_BAR_COLORS[reaction].g,FACTION_BAR_COLORS[reaction].b,1,true)   
-        GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
-        GameTooltip:AddLine("Reputation Points: "..tostring(value).."/"..tostring(maxBar).." ("..tostring(math.ceil((value/maxBar)*100)).."%)", 1,1,1,1,true)
+
+        if(reaction == 1) then
+            GameTooltip:AddLine(name.." ("..tostring((maxBar)-(value)).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(36000-((maxBar)-(value))).."/"..tostring(-maxBar+30000).." ("..tostring(math.ceil(((36000-((maxBar)-(value)))/(-maxBar+30000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 2) then
+            GameTooltip:AddLine(name.." ("..tostring((maxBar)-(value)).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(9000-((maxBar)-(value))).."/"..tostring(-maxBar+9000).." ("..tostring(math.ceil(((9000-((maxBar)-(value)))/(-maxBar+9000))*100)).."%)", 1,1,1,1,true)
+        elseif(reaction == 3) then
+            GameTooltip:AddLine(name.." ("..tostring((maxBar)-(value)).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(3000-((maxBar)-(value))).."/"..tostring(-maxBar+3000).." ("..tostring(math.ceil(((3000-((maxBar)-(value)))/(-maxBar+3000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 4) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value).."/"..tostring(maxBar).." ("..tostring(math.ceil(((value)/(maxBar))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 5) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value-3000).."/"..tostring(maxBar-3000).." ("..tostring(math.ceil(((value-3000)/(maxBar-3000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 6) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value-9000).."/"..tostring(maxBar-9000).." ("..tostring(math.ceil(((value-9000)/(maxBar-9000))*100)).."%)", 1,1,1,1,true)
+
+        elseif(reaction == 7) then
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value-21000).."/"..tostring(maxBar-21000).." ("..tostring(math.ceil(((value-21000)/(maxBar-21000))*100)).."%)", 1,1,1,1,true)
+        else
+            GameTooltip:AddLine(name.." ("..tostring(maxBar-value).." Reputation Points to next status)")
+            GameTooltip:AddLine("Reputation Points: "..tostring(value).."/"..tostring(maxBar).." ("..tostring(math.ceil((value/maxBar)*100)).."%)", 1,1,1,1,true)
+        end
+        
         
         
     else
@@ -429,12 +476,22 @@ xpwheel.percRINGRested_ = {}
 local reputationCheckBox = ReputationDetailMainScreenCheckBox:GetScript("OnClick")
 
 function xpwheel:OnEvent(self,event, ...)
-    
+    if(event == "CVAR_UPDATE")then 
+
+        xpwheel:SetXPBar()
+    end
+
 	if ( event == "HONOR_XP_UPDATE" or event == "ZONE_CHANGED"
             or event == "ZONE_CHANGED_NEW_AREA" or event == "CVAR_UPDATE" or event == "UPDATE_EXHAUSTION" or event == "PLAYER_XP_UPDATE" 
-            or event == "UPDATE_FACTION" or event == "DISABLE_XP_GAIN" or event == "ENABLE_XP_GAIN" or event == "CVAR_UPDATE") then
+            or event == "UPDATE_FACTION" or event == "DISABLE_XP_GAIN" or event == "ENABLE_XP_GAIN" or event == "CVAR_UPDATE" or event == "PLAYER_LEVEL_UP") then
                self:SetXPBar() 
-
+               if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+                xpwheel.playerLevel:SetText(UnitLevel("player"))
+                xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
+                else
+                    xpwheel.playerLevel:SetText("Cap")
+                    xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
+                end
 --[[ 
         self.HonorBarRing:Update();
         if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then 
@@ -489,6 +546,7 @@ function xpwheel:OnEvent(self,event, ...)
         ]]
     end 
     if ( event == "PLAYER_ENTERING_WORLD" ) then
+        
         honorLevel = UnitHonorLevel("player")
         xpwheel.Background = CreateFrame("Frame","XpWheelBackground",xpwheel)
         --handleStanceBar()
@@ -703,10 +761,40 @@ xpwheelOverlay:SetFrameLevel(2)
     end 
 
 if(event == "ADDON_LOADED")then
+    
+    if(ClassColorPaladin ~= true or ClassColorPaladin ~= false or ClassColorDruid ~= true or ClassColorDruid ~= false or ClassColorAll ~= true or ClassColorAll ~= false or StanceShow ~= true or StanceShow ~= false) then
+    if(ClassColorPaladin ~= true or ClassColorPaladin ~= false) then
+        --print(classColorPaladin)
+        --SetCVar("classColorPaladin", false, "scriptCVar");
+        ClassColorPaladin = false
+        --print(classColorPaladin)
+        end
+        
+        if(classColorDruid ~= true or classColorDruid ~= false) then
+        ClassColorDruid = false
+        --SetCVar("classColorDruid", false, "scriptCVar");
+        end
+        
+        if(classColorAll ~= true or classColorAll ~= false) then
+        ClassColorAll = false
+        --SetCVar("classColorAll", false, "scriptCVar");
+        end
+        
+        if(stanceShow ~= true or stanceShow ~= false) then
+        StanceShow = false
+        --SetCVar("stanceShow", false, "scriptCVar");
+        end
+        --ReloadUI();
 
+        --print("Addon Attempted to Install")
+        --print(stanceShow)
+        handleStanceBar()
+    end
     xpwheel:OnLoad()
     handleStanceBar()
 
+
+        
 end
 
 
@@ -738,57 +826,7 @@ xpwheel:SetScript("OnUpdate", function() update() end)
 
 function xpwheel:OnLoad() 
 
---[[ 
-    
 
-
-
-
-
-    --print("Loaded")
- MainMenuBarArtFrameBackground:Hide()
- MainMenuBarArtFrame.LeftEndCap:Hide()
- MainMenuBarArtFrame.PageNumber:Hide()
- MainMenuBarArtFrame.RightEndCap:Hide()
- --AchievementMicroButton:Hide()
- ActionBarDownButton:Hide()
- ActionBarUpButton:Hide()
-
- ActionButton2:Hide()
- ActionButton3:Hide()
- ActionButton4:Hide()
- ActionButton5:Hide()
- ActionButton6:Hide()
- ActionButton7:Hide()
- ActionButton8:Hide()
- ActionButton9:Hide()
- ActionButton10:Hide()
- ActionButton11:Hide()
- ActionButton12:Hide()
- MultiBarBottomLeftButton1:Hide()
- MultiBarBottomLeftButton2:Hide()
- MultiBarBottomLeftButton3:Hide()
- MultiBarBottomLeftButton4:Hide()
- MultiBarBottomLeftButton5:Hide()
- MultiBarBottomLeftButton6:Hide()
- MultiBarBottomLeftButton7:Hide()
- MultiBarBottomLeftButton8:Hide()
- MultiBarBottomLeftButton9:Hide()
- MultiBarBottomLeftButton10:Hide()
- MultiBarBottomLeftButton11:Hide()
- MultiBarBottomLeftButton12:Hide()
- MultiBarBottomRightButton1:Hide()
- MultiBarBottomRightButton2:Hide()
- MultiBarBottomRightButton3:Hide()
- MultiBarBottomRightButton4:Hide()
- MultiBarBottomRightButton5:Hide()
- MultiBarBottomRightButton6:Hide()
- MultiBarBottomRightButton7:Hide()
- MultiBarBottomRightButton8:Hide()
- MultiBarBottomRightButton9:Hide()
- MultiBarBottomRightButton10:Hide()
- MultiBarBottomRightButton11:Hide()
- MultiBarBottomRightButton12:Hide()]]
 end 
 
 
@@ -796,7 +834,7 @@ end
 
 function OnUpdate()
 
-    
+  
 
 
 
@@ -941,27 +979,35 @@ function xpwheel:SetXPBar()
                 if(reaction == 1)then
                     --[[ hated ]]
                     reacting = "|c00CC2222 Hat\n-ed"
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((36000-((maxBar)-(value)))/(-maxBar+30000))*100)).."%")
                 elseif(reaction == 2)then
                     --[[ hostile ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((9000-((maxBar)-(value)))/(-maxBar+9000))*100)).."%")
                     reacting = "|c00FF0000 Hos\n-tile"
                 elseif(reaction == 3)then
                     --[[ unfriendly ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((3000-((maxBar)-(value)))/(-maxBar+3000))*100)).."%")
                     reacting = "|c00ee6622 Unfri-\nendly"
                 elseif(reaction == 4)then
                     --[[ neutral ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
                     reacting = "Neu-\ntral"
                     xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
                 elseif(reaction == 5)then
                     --[[ friendly ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((value-3000)/(maxBar-3000))*100)).."%")
                     reacting = "|c0000FF00 Fri\n-endly"
                 elseif(reaction == 6)then
                     --[[ honored ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((value-9000)/(maxBar-9000))*100)).."%")
                     reacting = "|c0000ff88 Hon-\nored"
                 elseif(reaction == 7)then
                     --[[ Revered ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil(((value-21000)/(maxBar-21000))*100)).."%")
                     reacting = "|c0000ffcc Rev-\nered"
                 elseif(reaction == 8)then
                     --[[ exalted ]]
+                    xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
                     reacting = "|c0000FFFF Exa-\nlted"
                 else
                     xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")
