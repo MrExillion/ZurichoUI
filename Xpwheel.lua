@@ -105,7 +105,7 @@ StatusTrackingBarManager:Hide()
 
 
 local UPDATE_HONOR_TRACKING
-local xpwheel = CreateFrame("Frame", "10Star", UIParent)
+local xpwheel = CreateFrame("Frame", "10Star", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 xpwheel:RegisterEvent("PLAYER_ENTERING_WORLD")
 xpwheel:RegisterEvent("PLAYER_XP_UPDATE")
 xpwheel:RegisterEvent("UPDATE_EXHAUSTION")
@@ -151,7 +151,7 @@ xpwheel:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 60)
 
 xpwheel:SetHeight(200)
 xpwheel:SetWidth(200)
-xpwheelOverlay = CreateFrame("Frame","XpWheelOverlay",xpwheel)
+xpwheelOverlay = CreateFrame("Frame","XpWheelOverlay",xpwheel, BackdropTemplateMixin and "BackdropTemplate" )
 xpwheelOverlay:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArtGoldenTop",
 --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=false,tileSize=32,edgeSize=32,
 insets= {left=11,right=12,top=12,bottom=11}})
@@ -456,7 +456,7 @@ xpwheel.playerLevel:SetPoint(xpwheel:GetPoint(),(math.sin((180*math.pi)/180)*100
 
 
 
-if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+if(UnitLevel("player") < GetMaxLevelForPlayerExpansion() )then
 xpwheel.playerLevel:SetText(UnitLevel("player"))
 xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
 else
@@ -485,7 +485,7 @@ function xpwheel:OnEvent(self,event, ...)
             or event == "ZONE_CHANGED_NEW_AREA" or event == "CVAR_UPDATE" or event == "UPDATE_EXHAUSTION" or event == "PLAYER_XP_UPDATE" 
             or event == "UPDATE_FACTION" or event == "DISABLE_XP_GAIN" or event == "ENABLE_XP_GAIN" or event == "CVAR_UPDATE" or event == "PLAYER_LEVEL_UP") then
                self:SetXPBar() 
-               if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+               if(UnitLevel("player") < GetMaxLevelForPlayerExpansion()  )then
                 xpwheel.playerLevel:SetText(UnitLevel("player"))
                 xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
                 else
@@ -548,7 +548,7 @@ function xpwheel:OnEvent(self,event, ...)
     if ( event == "PLAYER_ENTERING_WORLD" ) then
         
         honorLevel = UnitHonorLevel("player")
-        xpwheel.Background = CreateFrame("Frame","XpWheelBackground",xpwheel)
+        xpwheel.Background = CreateFrame("Frame","XpWheelBackground",xpwheel,BackdropTemplateMixin and "BackdropTemplate")
         --handleStanceBar()
 
 
@@ -938,7 +938,7 @@ function xpwheel:SetXPBar()
         for i = 360, 0,-1 do
             
             local temp = Barzeroing(i)
-            if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+            if(UnitLevel("player") < GetMaxLevelForPlayerExpansion()  )then
                 xpwheel.percRING_[temp]:Show()
                 xpwheel.ReputationBarRing[temp]:Hide()
                 xpwheel.HonorBarRing[temp]:Hide()
@@ -1313,7 +1313,7 @@ function UpdateStatusBar()
             local temp = Barzeroing(i)
             xpwheel.HonorBarRing:Update();
             xpwheel.ReputationBarRing:Update();
-            if(UnitLevel("player") < MAX_PLAYER_LEVEL_TABLE[GetAccountExpansionLevel()] )then
+            if(UnitLevel("player") < GetMaxLevelForPlayerExpansion()  )then
                -- SetXPBar()
             xpwheel.playerLevel:SetText(UnitLevel("player")) 
             xpwheel.percRING_[temp]:Show()
