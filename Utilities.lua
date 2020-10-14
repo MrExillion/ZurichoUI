@@ -1,4 +1,4 @@
-local frame = CreateFrame('Frame', 'myUtilityBar', UIParent)
+local frame = CreateFrame('Frame', 'myUtilityBar', UIParent, BackdropTemplateMixin and "BackdropTemplate")
 frame:SetPoint("RIGHT",0,-UIParent:GetHeight()/2 + 48)
 frame:SetWidth(MicroButtonAndBagsBar:GetWidth()-25)
 frame:SetHeight(100)
@@ -8,7 +8,7 @@ frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
            insets= {left=11,right=12,top=12,bottom=11}})
 frame:SetBackdropColor(1,1,1,1);
 
-local frame2 = CreateFrame('Frame', 'myUtilityInfoFrame', frame)
+local frame2 = CreateFrame('Frame', 'myUtilityInfoFrame', frame, BackdropTemplateMixin and "BackdropTemplate")
 frame2:SetWidth(40)
 frame2:SetHeight(100)
 frame2:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
