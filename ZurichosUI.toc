@@ -1,4 +1,4 @@
-## Interface: 90010
+## Interface: 90001
 ## Title: Zürichos Brugergrænseflade
 ## Title-enGB: Zurichos UI
 ## Title-enUS: Zurichos UI
