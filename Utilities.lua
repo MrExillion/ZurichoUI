@@ -62,7 +62,8 @@ for i = 6,12 do
     _G["MultiBarRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
     _G["MultiBarLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
 
-    
+
+
     _G["MultiBarBottomRightButton"..i]:Hide()
     _G["MultiBarBottomLeftButton"..i]:Hide()
     _G["MultiBarRightButton"..i]:Show()
@@ -104,13 +105,49 @@ function UtilitySet2()
 		ActionButton10:Hide()
 		ActionButton11:Hide()
         ActionButton12:Hide()
-        RegisterAttributeDriver(ActionButton6, "visibility", false)
-        
+
+        -- Below code failed to do its job
+        RegisterAttributeDriver(ActionButton6, "visibility", false)        
         RegisterAttributeDriver(ActionButton7, "visibility", false)
         RegisterAttributeDriver(ActionButton8, "visibility", false)
         RegisterAttributeDriver(ActionButton9, "visibility", false)
         RegisterAttributeDriver(ActionButton10, "visibility", false)
+        -- Below code failed to do its job
+        RegisterAttributeDriver(ActionButton6, "_onshow", [[
+            ActionButton6:SetAttribute("visibility", false)
+            ]])
+        RegisterAttributeDriver(ActionButton7, "_onshow", [[
+            ActionButton7:SetAttribute("visibility", false)
+            ]])
+        RegisterAttributeDriver(ActionButton8, "_onshow", [[
+            ActionButton8:SetAttribute("visibility", false)
+            ]])
+        RegisterAttributeDriver(ActionButton9, "_onshow", [[
+            ActionButton9:SetAttribute("visibility", false)
+            ]])
+        RegisterAttributeDriver(ActionButton10, "_onshow", [[
+            ActionButton10:SetAttribute("visibility", false)
+            ]])
+
+
+
+        
+
+
     end
+    for i = 1,5 do
+            -- Workaround for visible actionbars --- This works well, though not sure what happens the moment someone changes aspect ratio or place a monitor below the main screen
+
+            _G["MultiBarBottomRightButton"..i]:ClearAllPoints()
+            _G["MultiBarBottomLeftButton"..i]:ClearAllPoints()
+            _G["MultiBarRightButton"..i]:ClearAllPoints()
+            _G["MultiBarLeftButton"..i]:ClearAllPoints()
+            _G["MultiBarBottomRightButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarBottomLeftButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarRightButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarLeftButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+    end
+
 end
 
 

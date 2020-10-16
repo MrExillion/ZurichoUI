@@ -59,7 +59,7 @@ SetCVar(ClassColorAll,false)
 end
 
 if(StanceShow==nil) then
-SetCVar(CtanceShow,false)
+SetCVar(StanceShow,false)
 end ]]
 
 
@@ -460,7 +460,7 @@ if(UnitLevel("player") < GetMaxLevelForPlayerExpansion() )then
 xpwheel.playerLevel:SetText(UnitLevel("player"))
 xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
 else
-    xpwheel.playerLevel:SetText("Cap")
+    xpwheel.playerLevel:SetText(UnitLevel("player"))
     xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
 end
 
@@ -489,9 +489,10 @@ function xpwheel:OnEvent(self,event, ...)
                 xpwheel.playerLevel:SetText(UnitLevel("player"))
                 xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
                 else
-                    xpwheel.playerLevel:SetText("Cap")
+                    xpwheel.playerLevel:SetText(UnitLevel("player"))
                     xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
                 end
+                self:SetXPBar()
 --[[ 
         self.HonorBarRing:Update();
         if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then 
@@ -762,8 +763,10 @@ xpwheelOverlay:SetFrameLevel(2)
 
 if(event == "ADDON_LOADED")then
     
+
+    -- There are potentially big issues with the code below
     if(ClassColorPaladin ~= true or ClassColorPaladin ~= false or ClassColorDruid ~= true or ClassColorDruid ~= false or ClassColorAll ~= true or ClassColorAll ~= false or StanceShow ~= true or StanceShow ~= false) then
-    if(ClassColorPaladin ~= true or ClassColorPaladin ~= false) then
+        if(ClassColorPaladin ~= true or ClassColorPaladin ~= false) then
         --print(classColorPaladin)
         --SetCVar("classColorPaladin", false, "scriptCVar");
         ClassColorPaladin = false
@@ -780,15 +783,18 @@ if(event == "ADDON_LOADED")then
         --SetCVar("classColorAll", false, "scriptCVar");
         end
         
-        if(stanceShow ~= true or stanceShow ~= false) then
+        if(StanceShow == nil) --[[ there seems to be an issue with or that should be xor, but i cant seem to find documentation for xor in lua outside of bitwise operations]]then
         StanceShow = false
         --SetCVar("stanceShow", false, "scriptCVar");
+        
         end
         --ReloadUI();
 
         --print("Addon Attempted to Install")
         --print(stanceShow)
-        handleStanceBar()
+        handleStanceBar()-- I commented this out because i think it caused a bug with some inability to "remember stanceshow true" to stay activated on load, after testing this is clearly not the case.
+    
+    
     end
     xpwheel:OnLoad()
     handleStanceBar()
@@ -1020,8 +1026,8 @@ function xpwheel:SetXPBar()
                 xpwheel.HonorBarRing[temp]:Show()
                 xpwheel.ReputationBarRing[temp]:Hide()
                 xpwheel.percCenter:SetText("Honor: "..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%")
-                xpwheel.playerLevel:SetText(honorLevel)
-                xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
+                xpwheel.playerLevel:SetText("|cff8C1616"..honorLevel)
+                --xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
             end    
         end
     end
@@ -1675,4 +1681,13 @@ function handleStanceBar()
         print("nil exception")
         
     end
+end
+
+function PrintStanceShow()
+    print(StanceShow)
+end
+function GetStanceShow()
+
+
+    return(StanceShow)
 end
