@@ -1,11 +1,11 @@
-## Interface: 90010
+## Interface: 90001
 ## Title: Zürichos Brugergrænseflade
 ## Title-enGB: Zurichos UI
 ## Title-enUS: Zurichos UI
 ## Title-deDE: Zürichos UI
 ## Title-esES: El UI Del Züricho
 ## Author: Peder Züricho, zuricho.dk, Pingu#2660
-## Version: 0.0.2 Alpha candidate 3
+## Version: 0.0.2 Alpha hotfix 2 marked Release (still active alpha)
 ## Notes: Minimalistisk brugergrænseflade inspireret af Overwatch, Diablo og Mobas i et forsøg på en enklere brugergrænseflade
 ## Notes-enGB: Minimalistic UI inspired by Overwatch, Diablo, and mobas, for a more simple UI
 ## Notes-enUS: Clean UI inspired by Overwatch, Diablo, and mobas, for a more simple UI
