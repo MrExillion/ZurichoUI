@@ -48,6 +48,14 @@ MicroButtonAndBagsBar:GetChildren():SetFrameLevel(MicroButtonAndBagsBar:GetFrame
 
 MicroButtonAndBagsBar:SetFrameLevel(1)
 local zPagingFrame = CreateFrame("FRAME", nil, nil, "SecureHandlerStateTemplate");
+for i = 1,5 do
+    _G["PetActionButton"..6-i]:ClearAllPoints();
+    _G["PetActionButton"..11-i]:ClearAllPoints();
+    _G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
+    _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
+
+
+end
 
 for i = 6,12 do
 
@@ -373,7 +381,13 @@ end);
                 _G["MultiBarLeftButton"..i]:Show()
             end 
         
+            for i = 1,5 do
+                _G["PetActionButton"..6-i]:ClearAllPoints();
+                _G["PetActionButton"..11-i]:ClearAllPoints();
+                _G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
+                _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
             
+            end
 
 
         end
