@@ -23,9 +23,16 @@ frame:RegisterEvent("PLAYER_XP_UPDATE")
 frame:RegisterEvent("UPDATE_EXHAUSTION")
 
 
+-- frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+--            edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
+--            insets= {left=11,right=12,top=12,bottom=11}})
+
+-- frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+--            edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUIGolden", tile=true,tileSize=32,edgeSize=32,
+--            insets= {left=11,right=12,top=12,bottom=11}})          
 frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
-           edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
-           insets= {left=11,right=12,top=12,bottom=11}})
+           edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1", tile=true,tileSize=32,edgeSize=32,
+           insets= {left=11,right=12,top=12,bottom=11}})                      
 frame:SetBackdropColor(1,1,1,1);
 local framePage2 = CreateFrame('Frame', 'myActionBar', UIParent, BackdropTemplateMixin)
 framePage2:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 150)

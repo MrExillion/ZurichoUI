@@ -15,11 +15,14 @@
 # LoadOnDemand: 1
 #Dependencies: ZurichosUI, Paging
 # In the future the paging addon functionality should be integrated into ZurichosUI
+Xpwheel.lua
+ZurichoSettings.lua
+ZurichoSettings.xml
 
 
 MainXML.xml
 MainLua.lua
-Xpwheel.lua
+
 Utilities.lua
 UnitFramesHandler.lua
 

@@ -105,7 +105,7 @@ StatusTrackingBarManager:Hide()
 
 
 local UPDATE_HONOR_TRACKING
-local xpwheel = CreateFrame("Frame", "10Star", UIParent, BackdropTemplateMixin and "BackdropTemplate")
+local xpwheel = CreateFrame("Frame", "StatusWheel", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 xpwheel:RegisterEvent("PLAYER_ENTERING_WORLD")
 xpwheel:RegisterEvent("PLAYER_XP_UPDATE")
 xpwheel:RegisterEvent("UPDATE_EXHAUSTION")
@@ -1369,8 +1369,13 @@ function UpdateStatusBar()
     
     
     end
+    SLASH_REFRESH1 = "/ZurichoRefresh"
+    --SLASH_PALADIN2 = "/ZurichoPaladins"
+SlashCmdList["REFRESH"] = function(...)
 
-
+xpwheel:SetXPBar()
+print("should work")
+end
 
     SLASH_PALADIN1 = "/ZurichoPaladin"
     --SLASH_PALADIN2 = "/ZurichoPaladins"
@@ -1681,6 +1686,7 @@ function handleStanceBar()
         print("nil exception")
         
     end
+    
 end
 
 function PrintStanceShow()
@@ -1691,3 +1697,165 @@ function GetStanceShow()
 
     return(StanceShow)
 end
+
+
+
+
+
+function GSetStatusBar()
+--print("Was called")
+
+end
+
+hooksecurefunc("GSetStatusBar",function() 
+    
+
+
+
+
+    if(classColorAll)then
+        if(englishClass == "PALADIN")then
+            xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Paladin",
+            --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+            tile=false,tileSize=32,edgeSize=32,
+            insets= {left=27,right=29,top=27,bottom=27}})
+           
+    
+        elseif(englishClass == "DEMONHUNTER") then
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5DemonHunter",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+       
+    
+        elseif(englishClass == "DRUID") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Druid",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "HUNTER") then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5HUnter",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "MAGE") then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Mage",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "MONK") then
+    
+    
+         xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Monk",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+    
+        elseif(englishClass == "PRIEST") then
+    
+    
+         xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Priest",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "ROGUE") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Rogue",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "SHAMAN") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Shaman",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "WARLOCK") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Warlock",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "WARRIOR") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Warrior",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+    
+        elseif(englishClass == "DEATHKNIGHT") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt4GoldenDeathknight",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+        else
+        
+            print("ZURICHOUI: ERROR 404 CLASS NOT FOUND! - XPWHEEL.LUA line: 1540")
+            xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt4GoldenBlack",
+            --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+            tile=false,tileSize=32,edgeSize=32,
+            insets= {left=27,right=29,top=27,bottom=27}})
+    
+            print(englishClass)
+    
+    
+        end
+    elseif(classColorPaladin)then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Paladin",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+
+    elseif(classColorDruid)then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Druid",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+    
+    elseif(englishFaction == "Horde" and classColorPaladin == false and classColorDruid == false) then
+     xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt4GoldenHorde",
+     --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+     tile=false,tileSize=32,edgeSize=32,
+     insets= {left=27,right=29,top=27,bottom=27}})
+    elseif(englishFaction == "Alliance" and classColorPaladin == false and classColorDruid == false) then
+    xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XPCircleArt4GoldenAlliance",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+    
+    
+    else
+    xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XPCircleArt4GoldenBlack",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+        
+    
+    end
+    
+    
+    
+    
+    xpwheel:SetXPBar() --print("WasCalled")
+end);
+ 
+    
+ 

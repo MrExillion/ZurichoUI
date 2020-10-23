@@ -3,17 +3,32 @@ frame:SetPoint("RIGHT",0,-UIParent:GetHeight()/2 + 48)
 frame:SetWidth(MicroButtonAndBagsBar:GetWidth()-25)
 frame:SetHeight(100)
 
+-- frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+--            edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
+--            insets= {left=11,right=12,top=12,bottom=11}})
+--frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+--           edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUIGolden", tile=true,tileSize=32,edgeSize=32,
+--           insets= {left=11,right=12,top=12,bottom=11}})
 frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
-           edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
+           edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1", tile=true,tileSize=32,edgeSize=32,
            insets= {left=11,right=12,top=12,bottom=11}})
+
+
 frame:SetBackdropColor(1,1,1,1);
 
 local frame2 = CreateFrame('Frame', 'myUtilityInfoFrame', frame, BackdropTemplateMixin and "BackdropTemplate")
 frame2:SetWidth(40)
 frame2:SetHeight(100)
+-- frame2:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+--            edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
+--            insets= {left=11,right=12,top=12,bottom=11}})
+--frame2:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
+--           edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUIGolden", tile=true,tileSize=32,edgeSize=32,
+--           insets= {left=11,right=12,top=12,bottom=11}})
 frame2:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
-           edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
-           insets= {left=11,right=12,top=12,bottom=11}})
+           edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1", tile=true,tileSize=32,edgeSize=32,
+           insets= {left=11,right=12,top=12,bottom=11}})              
+           
 frame2:SetBackdropColor(1,1,1,1);
 frame2:SetPoint(frame:GetPoint(),frame,-frame:GetWidth() +10 ,-frame:GetHeight()/2 + 50)
 
