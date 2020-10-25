@@ -1,9 +1,9 @@
 ## Interface: 90001
 ## Title: Zürichos Brugergrænseflade
-## Title-enGB: Zurichos UI
-## Title-enUS: Zurichos UI
-## Title-deDE: Zürichos UI
-## Title-esES: El UI Del Züricho
+## Title-enGB: |cff003399ZurichoUI|cffB61B1BAlpha(0.0.2)
+## Title-enUS: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.2)
+## Title-deDE: |cff003399ZürichoUI |cffB61B1BAlpha(0.0.2)
+## Title-esES: |cff003399El UI Del Zuericho
 ## Author: Peder Züricho, zuricho.dk, Pingu#2660
 ## Version: 0.0.2 Alpha hotfix 2 marked Release (still active alpha)
 ## Notes: Minimalistisk brugergrænseflade inspireret af Overwatch, Diablo og Mobas i et forsøg på en enklere brugergrænseflade

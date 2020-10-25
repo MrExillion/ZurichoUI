@@ -5,7 +5,7 @@ activeStatusColor = "none"
 function ZurichoUISettingsFrame_OnLoad(self)
 
 
-	self.name = "ZurichoUI"
+	self.name = "|cff003399ZurichoUI"
 
 
 	InterfaceOptions_AddCategory(self);
@@ -23,6 +23,9 @@ function ZurichoUISettingsFrame_OnLoad(self)
     dropDown.label.text:SetText("StautsBar Color Mode: ");
     dropDown.label.text:SetPoint(dropDown.label:GetPoint(),0,-5)
 
+
+
+    --TestFrame()
 end
 
 function ZurichoUISettingsFrameStanceBarVisible_OnClick(self)
@@ -279,3 +282,15 @@ function PopulateDropDown()
 
 end
 
+
+local testImage
+function TestFrame()
+testImage = CreateFrame("FRAME","TestFrameForZurichoUI",UIParent,BackdropTemplateMixin and "BackdropTemplate")
+testImage:SetPoint("BOTTOM", nil, "BOTTOM",-260,180)
+testImage:SetWidth(127)
+testImage:SetHeight(86)
+testImage:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\UI-Player-Portrait-Sketch-Up",
+edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1", tile=true,tileSize=127,edgeSize=0,
+insets= {left=0,right=-127,top=10,bottom=10}})
+
+end

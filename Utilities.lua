@@ -43,6 +43,26 @@ PlayerPowerBarAlt:HookScript("OnUpdate", function(self, ...)
         
 end)
 
+DurabilityFrame:HookScript("OnUpdate", function(self, ...)
+    
+
+    --PlayerPowerBarAlt:SetSize(10,10)
+    DurabilityFrame:ClearAllPoints()
+    DurabilityFrame:SetPoint("BOTTOM",UIParent,"BOTTOM",250,30)
+        
+end)
+
+VehicleSeatIndicator:HookScript("OnUpdate", function(self, ...)
+    
+
+    --PlayerPowerBarAlt:SetSize(10,10)
+    VehicleSeatIndicator:ClearAllPoints()
+    VehicleSeatIndicator:SetPoint("BOTTOM",UIParent,"BOTTOM",250,30)
+        
+end)
+
+
+
 ZoneAbilityFrame:HookScript("OnUpdate", function(self, ...)
     
 
