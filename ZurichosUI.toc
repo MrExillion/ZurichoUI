@@ -11,7 +11,7 @@
 ## Notes-enUS: Clean UI inspired by Overwatch, Diablo, and mobas, for a more simple UI
 ## Notes-deDE: Minimalistische Benutzeroberfläche, inspiriert von Overwatch, Diablo und Mobas, um die Benutzeroberfläche zu vereinfachen
 ## Notes-esES: Interfaz de usuario minimalista inspirada en Overwatch, Diablo y Mobas en un esfuerzo por simplificar la interfaz de usuario
-##SavedVariablesPerCharacter: classColorPaladin classColorDruid classColorAll StanceShow
+##SavedVariablesPerCharacter: classColorPaladin classColorDruid classColorAll StanceShow repWhileLeveling silverXPWheel noFrameXPWheel classColorXPWheel
 # LoadOnDemand: 1
 #Dependencies: ZurichosUI, Paging
 # In the future the paging addon functionality should be integrated into ZurichosUI

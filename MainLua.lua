@@ -1,5 +1,15 @@
 
 
+local media = LibStub("LibSharedMedia-3.0")
+
+media:Register("border", "ZurichoUI SilverBorder", "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1")
+media:Register("border", "ZurichoUI GoldBorder", "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUIGolden")
+
+
+-- not supposed to be here without DBM-VPEnglish Female Voice pack:
+if (IsAddOnLoaded("DBM-VPEnglish female")) then
+media:Register("sound", "Voice: VPEnglish-Female - Dispell Now", "Interface\\AddOns\\DBM-VPEnglish female\\dispelnow.ogg")
+end
 
 
  UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
@@ -34,6 +44,7 @@ frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
            edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1", tile=true,tileSize=32,edgeSize=32,
            insets= {left=11,right=12,top=12,bottom=11}})                      
 frame:SetBackdropColor(1,1,1,1);
+--frame:SetBackdropBorderColor(0.753,0.4,2,1);
 local framePage2 = CreateFrame('Frame', 'myActionBar', UIParent, BackdropTemplateMixin)
 framePage2:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 150)
 framePage2:SetWidth(220)

@@ -11,6 +11,15 @@
 					</Anchors>
 				</FontString>
 				
+			
+				<FontString name="$parentLabel1.2" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-40" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+
 				<FontString name="$parentLabel2" inherits="GameFontNormal">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
@@ -20,6 +29,14 @@
 				</FontString>
 				
 				<FontString name="$parentLabel3" inherits="GameFontDisable">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="420" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentLabel4" inherits="GameFontDisable">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
 							<Offset x="15" y="420" />
@@ -65,6 +82,43 @@
 						);
 					</OnLoad>
 					<OnClick function="ZurichoUISettingsFrameStanceBarVisible_OnClick" />
+				</Scripts>
+		</CheckButton>
+
+
+		<CheckButton name="$parentShowReputationWhileLeveling" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor relativeTo="$parentLabel1.2" point="TOPLEFT" relativePoint="BOTTOMLEFT">
+						<Offset x="15" y="-48" />
+					</Anchor>
+				</Anchors>
+				
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentHelpText" inherits="GameFontWhite" justifyH="LEFT" justifyV="TOP">
+							<Anchors>
+								<Anchor relativeTo="$parentText" point="TOPLEFT" relativePoint="BOTTOMLEFT">
+									<Offset y="-20" />
+								</Anchor>
+							</Anchors>
+							
+							<Size>
+								<AbsDimension x="500" y="80" />
+							</Size>
+						</FontString>
+					</Layer>
+				</Layers>
+				
+				<Scripts>
+					<OnLoad>
+						self.label = getglobal(self:GetName() .. "Text");
+						self.label:SetText("Show reputation while leveling");
+						
+						self.helpText = getglobal(self:GetName() .. "HelpText");
+						self.helpText:SetText("Show reputation while leveling"
+						);
+					</OnLoad>
+					<OnClick function="ZurichoUISettingsFrameShowReputationWhileLeveling_OnClick" />
 				</Scripts>
 		</CheckButton>
     <!--    <Button name="$parentStatusWheelColor" inherits="UIDropDownMenuTemplate" id="1">
