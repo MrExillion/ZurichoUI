@@ -1,0 +1,179 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\FrameXML\UI.xsd">
+   <!--<Script file="ZurichoSettings.lua" />-->
+   <Frame name="ZurichoUISettingsFrame" hidden="true">
+        <Layers>
+			<Layer level="OVERLAY">
+				<FontString name="$parentLabel1" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-20" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				
+			
+				<FontString name="$parentLabel1.2" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-40" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentLabel2" inherits="GameFontNormal">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="-210" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+				
+				<FontString name="$parentLabel3" inherits="GameFontDisable">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="420" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+
+				<FontString name="$parentLabel4" inherits="GameFontDisable">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="TOPLEFT">
+							<Offset x="15" y="420" />
+						</Anchor>
+					</Anchors>
+				</FontString>
+			</Layer>
+		</Layers>
+
+<!-- This section here is the added buttons etc.-->
+
+    <Frames>
+        <CheckButton name="$parentStanceBarVisbility" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor relativeTo="$parentLabel1" point="TOPLEFT" relativePoint="BOTTOMLEFT">
+						<Offset x="15" y="-8" />
+					</Anchor>
+				</Anchors>
+				
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentHelpText" inherits="GameFontWhite" justifyH="LEFT" justifyV="TOP">
+							<Anchors>
+								<Anchor relativeTo="$parentText" point="TOPLEFT" relativePoint="BOTTOMLEFT">
+									<Offset y="-10" />
+								</Anchor>
+							</Anchors>
+							
+							<Size>
+								<AbsDimension x="500" y="80" />
+							</Size>
+						</FontString>
+					</Layer>
+				</Layers>
+				
+				<Scripts>
+					<OnLoad>
+						self.label = getglobal(self:GetName() .. "Text");
+						self.label:SetText("Stance Bar Visible");
+						
+						self.helpText = getglobal(self:GetName() .. "HelpText");
+						self.helpText:SetText("Stance Bar Visible"
+						);
+					</OnLoad>
+					<OnClick function="ZurichoUISettingsFrameStanceBarVisible_OnClick" />
+				</Scripts>
+		</CheckButton>
+
+
+		<CheckButton name="$parentShowReputationWhileLeveling" inherits="OptionsCheckButtonTemplate">
+				<Anchors>
+					<Anchor relativeTo="$parentLabel1.2" point="TOPLEFT" relativePoint="BOTTOMLEFT">
+						<Offset x="15" y="-48" />
+					</Anchor>
+				</Anchors>
+				
+				<Layers>
+					<Layer level="OVERLAY">
+						<FontString name="$parentHelpText" inherits="GameFontWhite" justifyH="LEFT" justifyV="TOP">
+							<Anchors>
+								<Anchor relativeTo="$parentText" point="TOPLEFT" relativePoint="BOTTOMLEFT">
+									<Offset y="-20" />
+								</Anchor>
+							</Anchors>
+							
+							<Size>
+								<AbsDimension x="500" y="80" />
+							</Size>
+						</FontString>
+					</Layer>
+				</Layers>
+				
+				<Scripts>
+					<OnLoad>
+						self.label = getglobal(self:GetName() .. "Text");
+						self.label:SetText("Show reputation while leveling");
+						
+						self.helpText = getglobal(self:GetName() .. "HelpText");
+						self.helpText:SetText("Show reputation while leveling"
+						);
+					</OnLoad>
+					<OnClick function="ZurichoUISettingsFrameShowReputationWhileLeveling_OnClick" />
+				</Scripts>
+		</CheckButton>
+    <!--    <Button name="$parentStatusWheelColor" inherits="UIDropDownMenuTemplate" id="1">
+				<Anchors>
+					<Anchor relativeTo="$parentLabel2" point="LEFT" relativePoint="RIGHT">
+						<Offset y="-3" />
+					</Anchor>
+				</Anchors>
+
+				<Scripts>
+                    <OnLoad>
+                        ZurichoUISettingsFrameStatusWheelColor_OnLoad();
+                        self.type = CONTROLTYPE_DROPDOWN;
+                        self.label = getglobal(self:GetName() .. "Label");
+                        
+
+                        UIDropDownMenu_Initialize(self, ZurichoUISettingsFrameStatusWheelColor_Initialize(self));
+                        UIDropDownMenu_SetWidth(self, 275, 5); 
+                        UIDropDownMenu_JustifyText(self, "LEFT");
+                        UIDropDownMenu_SetText(self, ColorModeList.name[activeStatusColor]) 
+                        self.label:SetText(""..UIDropDownMenu_GetSelectedName(self));         
+                        
+
+
+                        ToggleDropDownMenu(1, nil, self, self, 106, 27)               
+        
+                        ZurichoUISettingsFrameStatusWheelColorButton:HookScript("OnMouseDown", function() ToggleDropDownMenu(1,nil,ZurichoUISettingsFrameStatusWheelColor) end)
+
+
+                        
+
+                    </OnLoad>
+                    <OnClick>
+                    
+                    ToggleDropDownMenu(nil, nil, ZurichoUISettingsFrameStatusWheelColor, ZurichoUISettingsFrameStatusWheelColorButton, -20,-50,menuList, button);
+                    </OnClick>
+                    
+					
+				</Scripts>
+
+	    </Button>
+    -->
+
+    </Frames>
+        
+
+
+   
+<!-- Below is the rest of the outer wrapper-->
+   		<Scripts>
+			<OnLoad function="ZurichoUISettingsFrame_OnLoad" />
+			<OnEvent function="ZurichoUISettingsFrame_OnEvent" />
+		</Scripts>
+    </Frame>
+
+		
+
+ </Ui>

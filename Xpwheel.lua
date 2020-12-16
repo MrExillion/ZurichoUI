@@ -38,7 +38,35 @@ PowerBarColor[17] = PowerBarColor["FURY"];
 PowerBarColor[18] = PowerBarColor["PAIN"];
 
 
-
+ClassColorTable = {};
+ClassColorTable[0] = {r = 0.00 ,g = 0.00 ,b = 0.00, a = 1.00};
+ClassColorTable[1] = {r = 0.78, g = 0.61, b = 0.43, a = 1.00};
+ClassColorTable[2] = {r = 0.96,	g = 0.55, b = 0.73, a = 1.00};
+ClassColorTable[3] = {r = 0.67, g = 0.83, b = 0.45, a = 1.00};
+ClassColorTable[4] = {r = 1.00, g =	0.96, b = 0.41, a = 1.00};
+ClassColorTable[5] = {r = 1.00, g = 1.00, b = 1.00, a = 1.00};
+ClassColorTable[6] = {r = 0.77, g = 0.12, b = 0.23, a = 1.00};
+ClassColorTable[7] = {r = 0.00, g = 0.44, b = 0.87, a = 1.00};
+ClassColorTable[8] = {r = 0.25, g = 0.78, b = 0.92, a = 1.00};
+ClassColorTable[9] = {r = 0.53, g = 0.53, b = 0.93, a = 1.00};
+ClassColorTable[10] = {r = 0.00, g = 1.00, b = 0.60, a = 1.00};
+ClassColorTable[11] = {r = 1.00, g = 0.49, b = 0.04, a = 1.00};
+ClassColorTable[12] = {r = 0.64, g = 0.19, b = 0.79, a = 1.00};
+--[[
+None = 0
+Warrior = 1
+Paladin = 2
+Hunter = 3
+Rogue = 4
+Priest = 5
+DeathKnight = 6
+Shaman = 7
+Mage = 8
+Warlock = 9
+Monk = 10
+Druid = 11
+Demon Hunter = 12
+]]
 local factionGroupColor = {}
 factionGroupColor["HORDE"] = {r = 1, g = 0.278, b = 0, a = 1}
 factionGroupColor["ALLIANCE"] = {r = 0, g = 0.678, b = 0.937, a = 1} 
@@ -105,7 +133,7 @@ StatusTrackingBarManager:Hide()
 
 
 local UPDATE_HONOR_TRACKING
-local xpwheel = CreateFrame("Frame", "10Star", UIParent, BackdropTemplateMixin and "BackdropTemplate")
+local xpwheel = CreateFrame("Frame", "StatusWheel", UIParent, BackdropTemplateMixin and "BackdropTemplate")
 xpwheel:RegisterEvent("PLAYER_ENTERING_WORLD")
 xpwheel:RegisterEvent("PLAYER_XP_UPDATE")
 xpwheel:RegisterEvent("UPDATE_EXHAUSTION")
@@ -152,9 +180,15 @@ xpwheel:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 60)
 xpwheel:SetHeight(200)
 xpwheel:SetWidth(200)
 xpwheelOverlay = CreateFrame("Frame","XpWheelOverlay",xpwheel, BackdropTemplateMixin and "BackdropTemplate" )
-xpwheelOverlay:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArtGoldenTop",
+--xpwheelOverlay:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArtGoldenTop",
+_G["XpWheelOverlay"]:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XPTOPCOLORLESS2",
 --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=false,tileSize=32,edgeSize=32,
 insets= {left=11,right=12,top=12,bottom=11}})
+--xpwheelOverlay:SetBackdropColor(0.753, 0.753, 0.753,1)
+
+
+
+--xpwheelOverlay:SetBackdropColor(0.831, 0.686,0.216,1) -- GOLD
 xpwheelOverlay:SetPoint(xpwheel:GetPoint(),0,0)
 xpwheelOverlay:SetHeight(165)
 xpwheelOverlay:SetWidth(165)
@@ -166,7 +200,10 @@ local size2 = 0.3
 statusbartooltip = CreateFrame('GameTooltip', "tooltipXP", nil, "GameTooltipTemplate")
 
 local englishFaction, localizedFaction = UnitFactionGroup("player")
-if (C_AzeriteItem.HasActiveAzeriteItem())then
+
+
+
+if (C_AzeriteItem.HasActiveAzeriteItem() == true and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped()) then
     local azeriteItemLocationX = C_AzeriteItem.FindActiveAzeriteItem()
     local app, totalAPp = C_AzeriteItem.GetAzeriteItemXPInfo(C_AzeriteItem.FindActiveAzeriteItem())
 end
@@ -218,34 +255,40 @@ end
 
 function tooltipXP_SetLines()
 
-if (C_AzeriteItem.HasActiveAzeriteItem()) then
-    azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
-    
-        --print(azeriteItem:GetItemLink())
-    
-
-
-    app, totalAPp = C_AzeriteItem.GetAzeriteItemXPInfo(C_AzeriteItem.FindActiveAzeriteItem())
-    GameTooltip:SetOwner(xpwheel, "CENTER",300,-150)
+if (C_AzeriteItem.HasActiveAzeriteItem() == true ) then
     
     GameTooltip:SetText("StatusBar:","|cFFFFFFFF",true)
-    if azeriteItemLocation then
-        local azeriteItem = Item:CreateFromItemLocation(C_AzeriteItem.FindActiveAzeriteItem());
-        if(IsShiftKeyDown())then
+    if(C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped()) then
+       azeriteItemLocation = C_AzeriteItem.FindActiveAzeriteItem()
         
-        GameTooltip:SetHyperlink(azeriteItem:GetItemLink())
-        GameTooltip:SetText("\n")
-        GameTooltip:SetText("StatusBar:","|cFFFFFFFF",true)
-        end
+            --print(azeriteItem:GetItemLink())
+            GameTooltip:SetOwner(xpwheel, "CENTER",300,-150)
 
-        GameTooltip:AddLine(azeriteItem:GetItemLink().." Level "..C_AzeriteItem.GetPowerLevel(azeriteItemLocation).." ("..tostring(totalAPp-app).." Artifact Power to next level)")   
-        GameTooltip:AddLine("")
+
+        app, totalAPp = C_AzeriteItem.GetAzeriteItemXPInfo(C_AzeriteItem.FindActiveAzeriteItem())
         
+        
+        
+        if azeriteItemLocation then
+            local azeriteItem = Item:CreateFromItemLocation(C_AzeriteItem.FindActiveAzeriteItem());
+            if(IsShiftKeyDown())then
+                
+            GameTooltip:SetHyperlink(azeriteItem:GetItemLink())
+            GameTooltip:SetText("\n")
+            GameTooltip:SetText("StatusBar:","|cFFFFFFFF",true)
+            end
+
+            GameTooltip:AddLine(azeriteItem:GetItemLink().." Level "..C_AzeriteItem.GetPowerLevel(azeriteItemLocation).." ("..tostring(totalAPp-app).." Artifact Power to next level)")   
+            GameTooltip:AddLine("")
+
+        end
+        --print("Tooltip does not have dynamic item name for Azerite Item")
+        GameTooltip:AddLine("Artifact Power: "..tostring(app).."/"..tostring(totalAPp),1,1,1,1,true)
+    else
+        GameTooltip:SetOwner(xpwheel, "CENTER",300,-150)
     end
-    --print("Tooltip does not have dynamic item name for Azerite Item")
-    GameTooltip:AddLine("Artifact Power: "..tostring(app).."/"..tostring(totalAPp),1,1,1,1,true)
     
-    if(xpwheel.HonorBarRing:ShouldBeVisible())then
+    if(xpwheel.HonorBarRing:ShouldBeVisible() or ( (not xpwheel.ReputationBarRing:ShouldBeVisible()) and (not xpwheel.HonorBarRing:ShouldBeVisible()) ))then
         if(englishFaction == "Horde") then
             factionGroupColor["DYNAMIC"] = factionGroupColor["HORDE"]
         else 
@@ -255,6 +298,7 @@ if (C_AzeriteItem.HasActiveAzeriteItem()) then
 
         GameTooltip:AddLine("("..localizedFaction..")",factionGroupColor["DYNAMIC"].r, factionGroupColor["DYNAMIC"].g, factionGroupColor["DYNAMIC"].b, factionGroupColor["DYNAMIC"].a,true)
         GameTooltip:AddLine("Honor Points: "..tostring(UnitHonor("player")).."/"..tostring(UnitHonorMax("player")).." ("..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%)", 1,1,1,1,true)
+    
     elseif(xpwheel.ReputationBarRing:ShouldBeVisible())then
         local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
         local reactionText = "neutral"
@@ -334,33 +378,35 @@ else
 end
 end
 
-function tooltipXP_MouseOver(isShown)
+function tooltipXP_MouseOver(isShown) -- not sure if should be deprecated.
+    
+    
     local linkAdded = false
-  --  while (isShown and C_AzeriteItem.HasActiveAzeriteItem()) do
---[[             GameTooltip:Hide()
-        if (IsShiftKeyDown() and linkAdded == false) then
+    if(true)then return nil else
+    while (isShown and C_AzeriteItem.HasActiveAzeriteItem() and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped()) do
+             GameTooltip:Hide()
+    if (IsShiftKeyDown() and linkAdded == false) then
             GameTooltip:ClearLines(1,2)
             GameTooltip:SetOwner(xpwheel, "CENTER",300,-150)
-     ]]
-            --GameTooltip:SetText("StatusBar:","|cFFFFFFFF",true)
---[[             local azeriteItem = Item:CreateFromItemLocation(C_AzeriteItem.FindActiveAzeriteItem());
+            GameTooltip:SetText("StatusBar:","|cFFFFFFFF",true)
+            local azeriteItem = Item:CreateFromItemLocation(C_AzeriteItem.FindActiveAzeriteItem());
             GameTooltip:SetHyperlink(azeriteItem:GetItemLink())
-            GameTooltip:SetText("\n") ]]
-            --tooltipXP_SetLines()
-            --linkAdded = true
-          --  GameTooltip:Show()
-       --[[  elseif(IsShiftKeyDown() == false and linkAdded == true) then
+            GameTooltip:SetText("\n") 
+            tooltipXP_SetLines()
+            linkAdded = true
+            GameTooltip:Show()
+    elseif(IsShiftKeyDown() == false and linkAdded == true) then
             GameTooltip:Clear()
             tooltipXP_SetLines()
             linkAdded = false
             GameTooltip:Show()
-        end
+    end
         GameTooltip:HookScript("OnLeave", function() 
-            tooltipXP_OnLeave()
+        tooltipXP_OnLeave()
 
-        end
-        ) ]]
-  --  end
+        end) 
+   end
+end
 end
 
 
@@ -368,7 +414,12 @@ end
 
 xpwheel:SetScript("OnEnter", function() tooltipXP_OnEnter() end )
 --xpwheel:HookScript("OnEnter", function() tooltipXP_MouseOver() end )
+
+if (C_AzeriteItem.HasActiveAzeriteItem() and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped()) then
 GameTooltip:SetScript("OnLeave", function() tooltipXP_OnLeave() end )
+else
+xpwheel:SetScript("OnLeave", function() tooltipXP_OnLeave() end )
+end
 --xpwheel.tooltipXP_OnEnter:HookScript("OnKeyDown", function() end)
 
 
@@ -438,8 +489,10 @@ xpwheel.artifactLevel:SetWidth(100)
 xpwheel.artifactLevel:SetHeight(100)
 xpwheel.artifactLevel:SetFont("Fonts\\ARIALN.ttf", 10, "OUTLINE")
 xpwheel.artifactLevel:SetPoint(xpwheel:GetPoint(),(math.sin((157*math.pi)/180)*100*size4)-2.4,(math.cos((157*math.pi)/180)*100*size4)-4.5 )
-if C_AzeriteItem.HasActiveAzeriteItem()then
+if (C_AzeriteItem.HasActiveAzeriteItem() and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped())then
     xpwheel.artifactLevel:SetText(C_AzeriteItem.GetPowerLevel(C_AzeriteItem.FindActiveAzeriteItem()))
+    else
+        -- do stuff with level signifier when not tracking AP
 end
 xpwheel.artifactLevel:SetTextColor(1.00,0.96,0.41)            
 
@@ -884,8 +937,27 @@ function xpwheel:SetXPBar()
     xpwheel.ReputationBarRing:Update()
     xpwheel.HonorBarRing:Update()
     xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")  
+    if(silverXPWheel) then
+        _G["XpWheelOverlay"]:SetBackdropColor(0.753, 0.753, 0.753,1)
+        _G["StatusWheel"]:SetBackdropColor(1,1,1,1)
+        xpwheel:SetBackdropColor(1,1,1,1)
+    elseif(classColorXPWheel) then
+        xpwheel:SetBackdropColor(1,1,1,1)
+        _G["StatusWheel"]:SetBackdropColor(1,1,1,1)
+        _G["XpWheelOverlay"]:SetBackdropColor(ClassColorTable[classIndex].r,ClassColorTable[classIndex].g,ClassColorTable[classIndex].b,ClassColorTable[classIndex].a)
+    elseif(noFrameXPWheel) then
+        xpwheel:SetBackdropColor(0,0,0,0)
+        _G["StatusWheel"]:SetBackdropColor(0,0,0,0)
+        _G["XpWheelOverlay"]:SetBackdropColor(0,0,0,0)
+    else
+        xpwheel:SetBackdropColor(1,1,1,1)
+        _G["XpWheelOverlay"]:SetBackdropColor(0.831, 0.686,0.216,1) 
+        _G["StatusWheel"]:SetBackdropColor(1,1,1,1)
+    end
 
-    if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then 
+
+
+    if((xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false) or repWhileLeveling == true)then 
         for i = 0,(math.ceil(xppercent*3.6)),1 do
             local temp = Barzeroing(i)
             --print(restVal)
@@ -944,9 +1016,21 @@ function xpwheel:SetXPBar()
         for i = 360, 0,-1 do
             
             local temp = Barzeroing(i)
+            local temp2 = Barzeroing2(i)
             if(UnitLevel("player") < GetMaxLevelForPlayerExpansion()  )then
                 xpwheel.percRING_[temp]:Show()
-                xpwheel.ReputationBarRing[temp]:Hide()
+
+                if(repWhileLeveling == true) then
+                        xpwheel.ReputationBarRing[temp2]:Show()
+                        xpwheel.percRING2_[temp2]:Hide()    
+                else
+                        xpwheel.ReputationBarRing[temp]:Hide()
+                        xpwheel.percRING2_[temp2]:Show()  
+                end
+                    
+                
+
+
                 xpwheel.HonorBarRing[temp]:Hide()
                 xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")
             else
@@ -964,7 +1048,13 @@ function xpwheel:SetXPBar()
                     xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41) 
                 else
                     xpwheel.percRING_[temp]:Hide()
+                    if(repWhileLeveling == true) then
+                    xpwheel.ReputationBarRing[temp2]:Show()
+                    xpwheel.percRING2_[temp2]:Hide()     
+                    else
                     xpwheel.ReputationBarRing[temp]:Show()
+                    xpwheel.percRING2_[temp2]:Show()
+                    end
                     xpwheel.HonorBarRing[temp]:Hide()
                 xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
                 xpwheel.percCenter:SetPoint(xpwheel.percCenter:GetPoint(),0,10)
@@ -974,9 +1064,16 @@ function xpwheel:SetXPBar()
     else
         for i = 360, 0,-1 do
             local temp = Barzeroing(i)
+            local temp2 = Barzeroing2(i)
             xpwheel.percRING_[temp]:Hide()
             if(xpwheel.ReputationBarRing:ShouldBeVisible())then
-                xpwheel.ReputationBarRing[temp]:Show()
+                if(repWhileLeveling == true) then
+                    xpwheel.ReputationBarRing[temp2]:Show()
+                    xpwheel.percRING2_[temp2]:Hide()     
+                    else
+                    xpwheel.ReputationBarRing[temp]:Show()
+                    xpwheel.percRING2_[temp2]:Show() 
+                    end
                 xpwheel.HonorBarRing[temp]:Hide()
                 local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
                 local reacting = "INVALID"
@@ -1024,7 +1121,13 @@ function xpwheel:SetXPBar()
             end
             if(xpwheel.HonorBarRing:ShouldBeVisible())then
                 xpwheel.HonorBarRing[temp]:Show()
-                xpwheel.ReputationBarRing[temp]:Hide()
+                if(repWhileLeveling == true) then
+                    xpwheel.ReputationBarRing[temp2]:Show()
+                    xpwheel.percRING2_[temp2]:Hide()     
+                    else
+                    xpwheel.ReputationBarRing[temp]:Hide()
+                    xpwheel.percRING2_[temp2]:Show() 
+                end
                 xpwheel.percCenter:SetText("Honor: "..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%")
                 xpwheel.playerLevel:SetText("|cff8C1616"..honorLevel)
                 --xpwheel.playerLevel:SetTextColor(1.00,0.96,0.41)
@@ -1039,14 +1142,15 @@ function xpwheel:ConditionalUpdateXPBar()
 end
 
 function xpwheel:SetItemXPBar()
-
-    
-    if C_AzeriteItem.HasActiveAzeriteItem()then
+ 
+    if (C_AzeriteItem.HasActiveAzeriteItem() and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped())then
         xpwheel.artifactLevel:SetText(C_AzeriteItem.GetPowerLevel(C_AzeriteItem.FindActiveAzeriteItem()))
         local artifactXP, xpForNextPoint = C_AzeriteItem.GetAzeriteItemXPInfo(C_AzeriteItem.FindActiveAzeriteItem())  
         artifactPointsPercent = (artifactXP/xpForNextPoint)*100
     end
-    if C_AzeriteItem.HasActiveAzeriteItem()then
+    if(repWhileLeveling == false) then    
+
+    if (C_AzeriteItem.HasActiveAzeriteItem() and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped())then
         xpwheel.artifactpercCenter:SetText("AP: "..tostring(math.ceil(artifactPointsPercent)).."%")
     end
 
@@ -1054,7 +1158,7 @@ function xpwheel:SetItemXPBar()
         local temp = Barzeroing2(i)
         xpwheel.percRING2_[temp]:SetTextColor(0.2,0.2,0.2,1)
     end
-    if C_AzeriteItem.HasActiveAzeriteItem()then
+    if (C_AzeriteItem.HasActiveAzeriteItem() and C_AzeriteEmpoweredItem.IsHeartOfAzerothEquipped())then
         for i = 0,(math.ceil(artifactPointsPercent*3.6)),1 do
             --[[ local r = 0.95 
             local g = 0.90 
@@ -1065,7 +1169,29 @@ function xpwheel:SetItemXPBar()
             --xpwheel.percRING2_[i]:SetTextColor(0.461, 0.398, 0.202,1)
         end
     end
-
+    else
+        for i = 0,360,1 do
+            local temp = Barzeroing2(i)
+            xpwheel.percRING2_[temp]:SetTextColor(0.2,0.2,0.2,1)
+            xpwheel.percRING2_[temp]:Hide()
+        end
+        if(artifactPointsPercent == nil)then 
+            local current = UnitHonor("player");
+            local maxHonor = UnitHonorMax("player");
+            artifactPointsPercent = (current/maxHonor)*100;
+        end
+        for i = 0,(math.ceil(artifactPointsPercent*3.6)),1 do
+            --[[ local r = 0.95 
+            local g = 0.90 
+            local b = 0.60
+            xpwheel.percRING2_[i]:SetTextColor(r, g, b,1)  ]]
+            local temp = Barzeroing2(i)
+            xpwheel.percRING2_[temp]:SetTextColor(ARTIFACT_BAR_COLOR:GetRGB())
+            xpwheel.percRING2_[temp]:Hide()
+            --xpwheel.percRING2_[i]:SetTextColor(0.461, 0.398, 0.202,1)
+        end
+    end
+    
 end
 
 
@@ -1238,31 +1364,74 @@ function xpwheel.ReputationBarRing:Update()
         for i = 360,0,-1 
         do
             local temp = Barzeroing(i)
-            if(xpwheel.ReputationBarRing[temp] == nil) then
-            xpwheel.ReputationBarRing[temp] = xpwheel:CreateFontString(nil,"ARTWORK") 
-            xpwheel.ReputationBarRing[temp]:SetFont("Fonts\\ARIALN.ttf", 55)
+            local temp2 = Barzeroing2(i)
+
             --print(math.sin(i)*100*size3,math.cos(i)*100*size3)
-            xpwheel.ReputationBarRing[temp]:SetPoint(xpwheel:GetPoint(),(math.sin((temp*math.pi)/180)*100*(size3+0.02))-1.0,(math.cos((temp*math.pi)/180)*100*(size3+0.02))-5.1)
+            --xpwheel.ReputationBarRing[temp]:SetPoint(xpwheel:GetPoint(),(math.sin((temp*math.pi)/180)*100*(size3+0.02))-1.0,(math.cos((temp*math.pi)/180)*100*(size3+0.02))-5.1)
             
-            xpwheel.ReputationBarRing[temp]:SetWidth(100)
-            xpwheel.ReputationBarRing[temp]:SetHeight(100)
-            xpwheel.ReputationBarRing[temp]:SetText("\•")
+            -- if show reputation while leveling is true Unfinished so its commented out
+            if(repWhileLeveling) then
+                if(xpwheel.ReputationBarRing[temp2] == nil) then
+                --if(true) then
+                xpwheel.ReputationBarRing[temp2] = xpwheel:CreateFontString(nil,"ARTWORK") 
+                xpwheel.ReputationBarRing[temp2]:SetFont("Fonts\\ARIALN.ttf", 20)
+                
+                xpwheel.ReputationBarRing[temp2]:SetWidth(100)
+                xpwheel.ReputationBarRing[temp2]:SetHeight(100)
+                xpwheel.ReputationBarRing[temp2]:SetText("\•")
+                end
+                xpwheel.ReputationBarRing[temp2]:SetFont("Fonts\\ARIALN.ttf", 20)
+                xpwheel.ReputationBarRing[temp2]:ClearAllPoints()
+                xpwheel.ReputationBarRing[temp2]:SetPoint(xpwheel:GetPoint(),(math.sin((temp2*math.pi)/180)*100*size4)-1.0,(math.cos((temp2*math.pi)/180)*100*size4)-3.6)            
+                xpwheel.percRING2_[temp2]:Hide();
             else
+                
+                if(xpwheel.ReputationBarRing[temp] == nil) then
+                --if(true) then
+                xpwheel.ReputationBarRing[temp] = xpwheel:CreateFontString(nil,"ARTWORK") 
+                
+                xpwheel.ReputationBarRing[temp]:SetFont("Fonts\\ARIALN.ttf", 55)
+                xpwheel.ReputationBarRing[temp]:SetWidth(100)
+                xpwheel.ReputationBarRing[temp]:SetHeight(100)
+                xpwheel.ReputationBarRing[temp]:SetText("\•")
+            end
+            xpwheel.ReputationBarRing[temp]:SetFont("Fonts\\ARIALN.ttf", 55)
+            xpwheel.ReputationBarRing[temp]:ClearAllPoints()            
+            xpwheel.ReputationBarRing[temp]:SetPoint(xpwheel:GetPoint(),(math.sin((temp*math.pi)/180)*100*(size3+0.02))-1.0,(math.cos((temp*math.pi)/180)*100*(size3+0.02))-5.1)
+            xpwheel.percRING2_[temp2]:Show();
+            --]]
+            
+            
             --xpwheel.ReputationBarRing[i]:Show()
             end
             if(i<=math.ceil((value/maxBar)*360)) then
                 --[[ local temp = Barzeroing(i) ]]
                 --print(temp)
-                if (xpwheel.ReputationBarRing:ShouldBeVisible() == true)then
+                if (xpwheel.ReputationBarRing:ShouldBeVisible() == true or (repWhileLeveling == true and xpwheel.ReputationBarRing:ShouldBeVisible() == true))then
+                    if(repWhileLeveling == false)then
                     xpwheel.ReputationBarRing[temp]:SetTextColor(color.r, color.g, color.b, 1)
+                    else
+                    xpwheel.ReputationBarRing[temp2]:SetTextColor(color.r, color.g, color.b, 1)
+                    end
                 else
-                    xpwheel.ReputationBarRing[temp]:SetTextColor(0, 0, 0, 0)
+
+                    if(repWhileLeveling == false) then
+                        xpwheel.ReputationBarRing[temp]:SetTextColor(0, 0, 0, 0)
+                        else
+                        xpwheel.ReputationBarRing[temp2]:SetTextColor(0, 0, 0, 0)
+                    end
+                    
                 end
             else
 --[[                 local temp = Barzeroing(i)]]
                    -- print(temp)
+                   
+                   if(xpwheel.ReputationBarRing[temp] ~= nil) then
                     xpwheel.ReputationBarRing[temp]:SetTextColor(0.2,0.2,0.2,1)
-
+                   end
+                   if(xpwheel.ReputationBarRing[temp2] ~= nil) then
+                    xpwheel.ReputationBarRing[temp2]:SetTextColor(0.2,0.2,0.2,1)
+                   end
             end
             
         end
@@ -1317,18 +1486,35 @@ function UpdateStatusBar()
     if(xpwheel.HonorBarRing:ShouldBeVisible() == false and xpwheel.ReputationBarRing:ShouldBeVisible() == false)then 
         for i = 360, 0,-1 do
             local temp = Barzeroing(i)
+            local temp2 = Barzeroing2(i)
             xpwheel.HonorBarRing:Update();
             xpwheel.ReputationBarRing:Update();
             if(UnitLevel("player") < GetMaxLevelForPlayerExpansion()  )then
                -- SetXPBar()
-            xpwheel.playerLevel:SetText(UnitLevel("player")) 
+            xpwheel.playerLevel:SetText(UnitLevel("player"))
+            if(repWhileLeveling == false)then
+                xpwheel.percRING_[temp]:Show()
+                xpwheel.ReputationBarRing[temp]:Hide()
+                xpwheel.ReputationBarRing[temp2]:Hide()
+                xpwheel.HonorBarRing[temp]:Hide()
+            else
             xpwheel.percRING_[temp]:Show()
-            xpwheel.ReputationBarRing[temp]:Hide()
+            xpwheel.percRING2_[temp2]:Show()
+            --xpwheel.ReputationBarRing[temp2]:Show()
             xpwheel.HonorBarRing[temp]:Hide()
+            end
             xpwheel.percCenter:SetText("XP: "..tostring(math.ceil((UnitXP("player")/UnitXPMax("player"))*100)).."%")
             else
+                if(repWhileLeveling == false)then
                 xpwheel.percRING_[temp]:Hide()
                 xpwheel.ReputationBarRing[temp]:Show()
+                --xpwheel.ReputationBarRing[temp2]:Hide()
+                else 
+                xpwheel.percRING_[temp]:Show()
+                xpwheel.percRING2_[temp2]:Hide()
+                xpwheel.ReputationBarRing[temp2]:Show()
+                end
+                
                 xpwheel.HonorBarRing[temp]:Hide()
                 local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
                 xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
@@ -1341,10 +1527,16 @@ function UpdateStatusBar()
         xpwheel.ReputationBarRing:Update();
         for i = 360, 0,-1 do
             local temp = Barzeroing(i)
+            local temp2 = Barzeroing2(i)
             --SetXPBar()
             xpwheel.percRING_[temp]:Hide()
             if(xpwheel.ReputationBarRing:ShouldBeVisible() and xpwheel.HonorBarRing:ShouldBeVisible() == false)then
+                if(repWhileLeveling == false) then
                 xpwheel.ReputationBarRing[temp]:Show()
+                else
+                
+                xpwheel.ReputationBarRing[temp2]:Show()
+                end
                 xpwheel.HonorBarRing[temp]:Hide()
                 local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
                 xpwheel.percCenter:SetText(name.."\nRep: "..tostring(math.ceil((value/maxBar)*100)).."%")
@@ -1352,13 +1544,21 @@ function UpdateStatusBar()
     
             elseif(xpwheel.ReputationBarRing:ShouldBeVisible() == false and xpwheel.HonorBarRing:ShouldBeVisible())then 
                 xpwheel.HonorBarRing[temp]:Show()
-                xpwheel.ReputationBarRing[temp]:Hide()
+                if(repWhileLeveling == false) then
+                    xpwheel.ReputationBarRing[temp]:Hide()
+                    else
+                    xpwheel.ReputationBarRing[temp2]:Hide()
+                    end
                 xpwheel.percCenter:SetText("Honor: "..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%")
     
             
             elseif(xpwheel.ReputationBarRing:ShouldBeVisible() and xpwheel.HonorBarRing:ShouldBeVisible())then
                 xpwheel.HonorBarRing[temp]:Show()
-                xpwheel.ReputationBarRing[temp]:Hide()
+                if(repWhileLeveling == false) then
+                    xpwheel.ReputationBarRing[temp]:Hide()
+                    else
+                    xpwheel.ReputationBarRing[temp2]:Hide()
+                end
                 xpwheel.percCenter:SetText("Honor: "..tostring(math.ceil((UnitHonor("player")/UnitHonorMax("player"))*100)).."%")
     
             end
@@ -1369,8 +1569,13 @@ function UpdateStatusBar()
     
     
     end
+    SLASH_REFRESH1 = "/ZurichoRefresh"
+    --SLASH_PALADIN2 = "/ZurichoPaladins"
+SlashCmdList["REFRESH"] = function(...)
 
-
+xpwheel:SetXPBar()
+print("should work")
+end
 
     SLASH_PALADIN1 = "/ZurichoPaladin"
     --SLASH_PALADIN2 = "/ZurichoPaladins"
@@ -1681,6 +1886,7 @@ function handleStanceBar()
         print("nil exception")
         
     end
+    
 end
 
 function PrintStanceShow()
@@ -1690,4 +1896,203 @@ function GetStanceShow()
 
 
     return(StanceShow)
+end
+
+
+
+
+function GSetStatusBar()
+--print("Was called")
+
+end
+
+hooksecurefunc("GSetStatusBar",function() 
+    
+
+
+
+
+
+    if(classColorAll)then
+        if(englishClass == "PALADIN")then
+            xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Paladin",
+            --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+            tile=false,tileSize=32,edgeSize=32,
+            insets= {left=27,right=29,top=27,bottom=27}})
+           
+    
+        elseif(englishClass == "DEMONHUNTER") then
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5DemonHunter",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+       
+    
+        elseif(englishClass == "DRUID") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Druid",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "HUNTER") then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5HUnter",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "MAGE") then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Mage",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "MONK") then
+    
+    
+         xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Monk",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+    
+        elseif(englishClass == "PRIEST") then
+    
+    
+         xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Priest",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "ROGUE") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Rogue",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "SHAMAN") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Shaman",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "WARLOCK") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Warlock",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+        elseif(englishClass == "WARRIOR") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Warrior",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+    
+    
+        elseif(englishClass == "DEATHKNIGHT") then
+    
+    
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt4GoldenDeathknight",
+        --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+        tile=false,tileSize=32,edgeSize=32,
+        insets= {left=27,right=29,top=27,bottom=27}})
+        else
+        
+            print("ZURICHOUI: ERROR 404 CLASS NOT FOUND! - XPWHEEL.LUA line: 1540")
+            xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt4GoldenBlack",
+            --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+            tile=false,tileSize=32,edgeSize=32,
+            insets= {left=27,right=29,top=27,bottom=27}})
+    
+            print(englishClass)
+    
+    
+        end
+    elseif(classColorPaladin)then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Paladin",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+
+    elseif(classColorDruid)then
+        xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt5Druid",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+    
+    elseif(englishFaction == "Horde" and classColorPaladin == false and classColorDruid == false) then
+     xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XpCircleArt4GoldenHorde",
+     --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+     tile=false,tileSize=32,edgeSize=32,
+     insets= {left=27,right=29,top=27,bottom=27}})
+    elseif(englishFaction == "Alliance" and classColorPaladin == false and classColorDruid == false) then
+    xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XPCircleArt4GoldenAlliance",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+    
+    
+    else
+    xpwheel:SetBackdrop({bgFile="Interface\\AddOns\\ZurichosUI\\XPCircleArt4GoldenBlack",
+    --edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", 
+    tile=false,tileSize=32,edgeSize=32,
+    insets= {left=27,right=29,top=27,bottom=27}})
+        
+    
+    end
+    
+    
+
+    
+    xpwheel:SetXPBar() --print("WasCalled")
+end);
+ 
+    
+function TalentCycle(r) -- r indicates tier.
+    for j=1,4,1 do
+        local x={unpack({GetTalentInfo(r,j,1)},1,12)}
+        if(x[10]) then
+            if x[9] == 3 then LearnTalent(GetTalentInfo(r,1,1)) break
+            else
+                LearnTalent(GetTalentInfo(r,j+1,1)) break
+            end
+        else
+            wipe(x)
+        end
+    end
+end
+
+function TalentPick(r,c)
+    LearnTalent(GetTalentInfo(r,c,1))
+end
+
+
+function SetTalentMultispecNest(tablein)
+    local availableCheck = {15,25,30,35,40,45,50}
+    for i = 1,7,1 do
+        if type(tablein[i]) == "number" then
+            local x={unpack({GetTalentInfo(i,tablein[i],1)},1,12)}
+            if not x[10] and availableCheck[i] <= UnitLevel("Player") then
+                TalentPick(i,tablein[i])
+            else
+                if(not x[10]) then
+                local msg = "Not high enough Level for that talent"
+                print("one or more talents were skipped: ",i," - ",msg)
+                end
+            end
+        
+        elseif type(tablein[i])~="nil" then
+            assert(true,"Input is not a number, type: "+ type(tablein[i]) + ", index: " + i + "in table: " + tablein)
+        end
+    end
 end
