@@ -5,6 +5,11 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E6E1D386-69D8-4755-9E61-0950293915FC}") = "ZurichoUI", "ZurichoUI.wowproj", "{BD83FF15-C13F-4144-86B7-D0BFE077C654}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8E04901-0EB5-43A5-9192-6FC7BF078559}"
+	ProjectSection(SolutionItems) = preProject
+		.pkgmeta = .pkgmeta
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Default|Any CPU = Default|Any CPU

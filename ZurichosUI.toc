@@ -1,4 +1,4 @@
-## Interface: 90002
+## Interface: 90200
 ## Title: Zürichos Brugergrænseflade
 ## Title-enGB: |cff003399ZurichoUI|cffB61B1BAlpha(0.0.3)
 ## Title-enUS: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.3)
@@ -11,6 +11,13 @@
 ## Notes-enUS: Clean UI inspired by Overwatch, Diablo, and mobas, for a more simple UI
 ## Notes-deDE: Minimalistische Benutzeroberfläche, inspiriert von Overwatch, Diablo und Mobas, um die Benutzeroberfläche zu vereinfachen
 ## Notes-esES: Interfaz de usuario minimalista inspirada en Overwatch, Diablo y Mobas en un esfuerzo por simplificar la interfaz de usuario
+
+## OptionalDeps: Ace3
+## X-Embeds: Ace3
+## X-Embeds: LibStub
+## X-Embeds: CallbackHandler-1.0
+## X-Curse-Project-ID: 409968 
+
 ##SavedVariablesPerCharacter: classColorPaladin classColorDruid classColorAll StanceShow repWhileLeveling silverXPWheel noFrameXPWheel classColorXPWheel
 # LoadOnDemand: 1
 #Dependencies: ZurichosUI, Paging

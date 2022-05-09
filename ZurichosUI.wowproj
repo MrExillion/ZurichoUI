@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Deploy" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Default</Configuration>
+    <Name>ZurichosUI</Name>
+    <ProjectGuid>bd83ff15-c13f-4144-86b7-d0bfe077c654</ProjectGuid>
+    <AssemblyName>WowAddon1</AssemblyName>
+    <RootNamespace>WowAddon1</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Default' ">
+    <OutputPath>.</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".gitattributes" />
+    <Content Include=".gitignore" />
+    <Content Include="DialogFrame-Corners-ZurichoUIGolden.blp" />
+    <Content Include="Libs\AceAddon-3.0\AceAddon-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceAddon-3.0\AceAddon-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceBucket-3.0\AceBucket-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceBucket-3.0\AceBucket-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceComm-3.0\AceComm-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceComm-3.0\AceComm-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceComm-3.0\ChatThrottleLib.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfig-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfig-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfigCmd-3.0\AceConfigCmd-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfigCmd-3.0\AceConfigCmd-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfigDialog-3.0\AceConfigDialog-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfigDialog-3.0\AceConfigDialog-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfigRegistry-3.0\AceConfigRegistry-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceConfig-3.0\AceConfigRegistry-3.0\AceConfigRegistry-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceConsole-3.0\AceConsole-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceConsole-3.0\AceConsole-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceDB-3.0\AceDB-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceDB-3.0\AceDB-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceDBOptions-3.0\AceDBOptions-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceEvent-3.0\AceEvent-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceEvent-3.0\AceEvent-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\AceGUI-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\AceGUI-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-BlizOptionsGroup.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-DropDownGroup.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-Frame.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-InlineGroup.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-ScrollFrame.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-SimpleGroup.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-TabGroup.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-TreeGroup.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIContainer-Window.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-Button.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-CheckBox.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-ColorPicker.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-DropDown-Items.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-DropDown.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-EditBox.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-Heading.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-Icon.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-InteractiveLabel.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-Keybinding.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-Label.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-MultiLineEditBox.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceGUI-3.0\widgets\AceGUIwidget-Slider.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceHook-3.0\AceHook-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceHook-3.0\AceHook-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceLocale-3.0\AceLocale-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceLocale-3.0\AceLocale-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceSerializer-3.0\AceSerializer-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceSerializer-3.0\AceSerializer-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceTab-3.0\AceTab-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceTab-3.0\AceTab-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\AceTimer-3.0\AceTimer-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\AceTimer-3.0\AceTimer-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Libs\LibSharedMedia-3.0\lib.xml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\LibSharedMedia-3.0\LibSharedMedia-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\LibStub\LibStub.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\LibStub\LibStub.toc">
+      <SubType>TableOfContents</SubType>
+    </Content>
+    <Content Include="MainLua.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="MainXML.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="Mockupscreenshot.psd" />
+    <Content Include="PARKED CODE.txt" />
+    <Content Include="UI-DialogBox-Border-ZurichoUIGolden.blp" />
+    <Content Include="UI-DialogBox-Border-ZurichoUISilver1.blp" />
+    <Content Include="UI-Player-Portrait-Sketch-Up.blp" />
+    <Content Include="UI-Player-Portrait-Sketch-Up.png" />
+    <Content Include="UI-Player-Portrait-Sketch-Up.psd" />
+    <Content Include="UnitFramesHandler.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Utilities.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="XPCircleArt.psd" />
+    <Content Include="XPCircleArt2.psd" />
+    <Content Include="XPCircleArt3.psd" />
+    <Content Include="XPCircleArt3DH.psd" />
+    <Content Include="XPCircleArt3DK.psd" />
+    <Content Include="XPCircleArt3Druid.psd" />
+    <Content Include="XPCircleArt3Hunter.psd" />
+    <Content Include="XPCircleArt3Mage.psd" />
+    <Content Include="XPCircleArt3Monk.psd" />
+    <Content Include="XPCircleArt3Paladin.psd" />
+    <Content Include="XPCircleArt3Priest.psd" />
+    <Content Include="XPCircleArt3Rogue.psd" />
+    <Content Include="XPCircleArt3Shaman.psd" />
+    <Content Include="XPCircleArt3Warlock.psd" />
+    <Content Include="XPCircleArt3Warrior.psd" />
+    <Content Include="XPCircleArt4.psd" />
+    <Content Include="XPCircleArt4GoldenAlliance.blp" />
+    <Content Include="XPCircleArt4GoldenAlliance.png" />
+    <Content Include="XPCircleArt4GoldenBlack.blp" />
+    <Content Include="XPCircleArt4GoldenBlack.png" />
+    <Content Include="XPCircleArt4GoldenDeathknight.blp" />
+    <Content Include="XPCircleArt4GoldenDeathknight.png" />
+    <Content Include="XPCircleArt4GoldenDynamic.blp" />
+    <Content Include="XPCircleArt4GoldenDynamic.png" />
+    <Content Include="XPCircleArt4GoldenHorde.blp" />
+    <Content Include="XPCircleArt4GoldenHorde.png" />
+    <Content Include="XPCircleArt5.psd" />
+    <Content Include="XPCircleArt5DemonHunter.blp" />
+    <Content Include="XPCircleArt5DemonHunter.png" />
+    <Content Include="XPCircleArt5Druid.blp" />
+    <Content Include="XPCircleArt5Druid.png" />
+    <Content Include="XPCircleArt5Hunter.blp" />
+    <Content Include="XPCircleArt5Hunter.png" />
+    <Content Include="XPCircleArt5Mage.blp" />
+    <Content Include="XPCircleArt5Mage.png" />
+    <Content Include="XPCircleArt5Monk.blp" />
+    <Content Include="XPCircleArt5Monk.png" />
+    <Content Include="XPCircleArt5Paladin.blp" />
+    <Content Include="XPCircleArt5Paladin.png" />
+    <Content Include="XPCircleArt5Priest.blp" />
+    <Content Include="XPCircleArt5Priest.png" />
+    <Content Include="XPCircleArt5Rogue.blp" />
+    <Content Include="XPCircleArt5Rogue.png" />
+    <Content Include="XPCircleArt5Shaman.blp" />
+    <Content Include="XPCircleArt5Shaman.png" />
+    <Content Include="XPCircleArt5Top.psd" />
+    <Content Include="XPCircleArt5Warlock.blp" />
+    <Content Include="XPCircleArt5Warlock.png" />
+    <Content Include="XPCircleArt5Warrior.blp" />
+    <Content Include="XPCircleArt5Warrior.png" />
+    <Content Include="XPCircleArtBGAlliance.blp" />
+    <Content Include="XPCircleArtBGAlliance.png" />
+    <Content Include="XPCircleArtBGAlliance2.blp" />
+    <Content Include="XPCircleArtBGAlliance2.png" />
+    <Content Include="XPCircleArtBGAlliance3.blp" />
+    <Content Include="XPCircleArtBGAlliance3.png" />
+    <Content Include="XPCircleArtBGHorde.blp" />
+    <Content Include="XPCircleArtBGHorde.png" />
+    <Content Include="XPCircleArtBGHorde2.blp" />
+    <Content Include="XPCircleArtBGHorde2.png" />
+    <Content Include="XPCircleArtBGHorde3.blp" />
+    <Content Include="XPCircleArtBGHorde3.png" />
+    <Content Include="XPCircleArtBGNoFaction.blp" />
+    <Content Include="XPCircleArtBGNoFaction.png" />
+    <Content Include="XPCircleArtBGNoFaction2.blp" />
+    <Content Include="XPCircleArtBGNoFaction2.png" />
+    <Content Include="XPCircleArtBGNoFaction3.blp" />
+    <Content Include="XPCircleArtBGNoFaction3.png" />
+    <Content Include="XPCircleArtGoldenTop.blp" />
+    <Content Include="XPCircleArtGoldenTop.png" />
+    <Content Include="XPCircleArtTOP.blp" />
+    <Content Include="XPCircleArtTOP.png" />
+    <Content Include="XPCircleArtTOP2.blp" />
+    <Content Include="XPCircleArtTOP2.png" />
+    <Content Include="XPCircleArtTOP3.blp" />
+    <Content Include="XPCircleArtTOP3.png" />
+    <Content Include="XPTOPCOLORLESS.tga" />
+    <Content Include="XPTOPCOLORLESS2.blp" />
+    <Content Include="XPTOPCOLORLESS2.png" />
+    <Content Include="Xpwheel.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="ZurichoSettings.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="ZurichoSettings.xml">
+      <SubType>Frame</SubType>
+    </Content>
+    <Content Include="ZurichosUI.code-workspace" />
+    <Content Include="ZurichosUI.toc">
+      <SubType>TableOfContents</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Libs" />
+    <Folder Include="Libs\AceAddon-3.0\" />
+    <Folder Include="Libs\AceBucket-3.0\" />
+    <Folder Include="Libs\AceComm-3.0\" />
+    <Folder Include="Libs\AceConfig-3.0\" />
+    <Folder Include="Libs\AceConfig-3.0\AceConfigCmd-3.0\" />
+    <Folder Include="Libs\AceConfig-3.0\AceConfigDialog-3.0\" />
+    <Folder Include="Libs\AceConfig-3.0\AceConfigRegistry-3.0\" />
+    <Folder Include="Libs\AceConsole-3.0\" />
+    <Folder Include="Libs\AceDB-3.0\" />
+    <Folder Include="Libs\AceDBOptions-3.0\" />
+    <Folder Include="Libs\AceEvent-3.0\" />
+    <Folder Include="Libs\AceGUI-3.0\" />
+    <Folder Include="Libs\AceGUI-3.0\widgets\" />
+    <Folder Include="Libs\AceHook-3.0\" />
+    <Folder Include="Libs\AceLocale-3.0\" />
+    <Folder Include="Libs\AceSerializer-3.0\" />
+    <Folder Include="Libs\AceTab-3.0\" />
+    <Folder Include="Libs\AceTimer-3.0\" />
+    <Folder Include="Libs\CallbackHandler-1.0\" />
+    <Folder Include="Libs\LibSharedMedia-3.0\" />
+    <Folder Include="Libs\LibStub\" />
+  </ItemGroup>
+  <Import Project="$(DevEnvDir)\Extensions\Tools\MSBuild\AddonStudio\Wow\3.0\WowAddonStudio.targets" />
+  <!--
+  To modify your build process, add your task inside one of the targets below and uncomment it.
+  <Target Name="BeforeClean"></Target>
+  <Target Name="AfterClean"></Target>
+  <Target Name="BeforeRebuild"></Target>
+  <Target Name="AfterRebuild"></Target>
+  <Target Name="BeforeDeploy"></Target>
+  <Target Name="AfterDeploy"></Target>
+  -->
+</Project>
