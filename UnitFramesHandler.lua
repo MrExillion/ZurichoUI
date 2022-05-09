@@ -9,7 +9,7 @@ function ApplyZurichoBordersToZPerl()
   --      return
     --end
     --moving = true
-   
+
     if tostring(XPerl_PlayernameFrame:GetBackdrop().edgeFile) ~= tostring("Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1" and IsAddOnLoaded("ZPerl")) then
         XPerl_Frame_Backdrop_32_16_3333.edgeFile = "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
         XPerl_Frame_Backdrop_256_10_1211.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
@@ -19,25 +19,25 @@ function ApplyZurichoBordersToZPerl()
 
 
         XPerl_Frame_Backdrop_32_16_4444.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Frame_Backdrop_16_16_4444.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Frame_Backdrop_8_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Icon_Backdrop_8_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1" --""
-        
+
         XPerl_Frame_Backdrop_256_10_1211.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Raid_Backdrop_16_9_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Raid_Backdrop_32_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Options_Backdrop_256_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Options_Backdrop_256_16_5555.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_UISlider_Backdrop_8_8_3366.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Frame_Backdrop_32_16_2222.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
 
         XPerl_PlayernameFrame:SetBackdrop(
@@ -73,8 +73,8 @@ function ApplyZurichoBordersToZPerl()
             insets = { left = 3, right = 3, top = 3, bottom = 3}
             })
             --moving = nil
-            --plaMoved = true 
-        
+            --plaMoved = true
+
             --hashCheck = XPerl_PlayernameFrame:GetBackdrop({edgeFile});
 
 
@@ -83,20 +83,20 @@ function ApplyZurichoBordersToZPerl()
 
 function unitHandlerFrame:OnEvent(event, addon)
 	--Check if the talkinghead addon is being loaded
-	
+
 
 local moving
 local plaMoved = false
 local tarMoved = false
 if (IsAddOnLoaded("ZPerl")) then
 hooksecurefunc("XPerl_SetHealthBar", function()
-    
+
 ApplyZurichoBordersToZPerl()
 
 end)
 
 hooksecurefunc("XPerl_Unit_UpdatePortrait", function()
-    
+
 ApplyZurichoBordersToZPerl()
 
 end)
@@ -107,16 +107,16 @@ hooksecurefunc("XPerl_BarUpdate",ApplyZurichoBordersToZPerl)
 
 _G["XPerl_Globals"]:HookScript("OnUpdate", function()
     --if tContains(XPerl_PlayernameFrame:GetBackdrop({edgeFile}), "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1") then
-    
+
         --ApplyZurichoBordersToZPerl()
 
         --print(tContains(XPerl_PlayernameFrame:GetBackdrop({edgeFile}), "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"))
     --end
     --if tostring(XPerl_PlayernameFrame:GetBackdrop().edgeFile) ~= tostring("Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1") then
         --print(XPerl_PlayernameFrame:GetBackdrop().edgeFile)
-        
+
         --print(XPerl_PlayernameFrame:GetBackdrop().edgeFile)
-        
+
     --end
 
     ApplyZurichoBordersToZPerl()
@@ -136,25 +136,25 @@ _G["XPerl_Globals"]:HookScript("OnUpdate", function()
 
 
         XPerl_Frame_Backdrop_32_16_4444.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Frame_Backdrop_16_16_4444.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Frame_Backdrop_8_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Icon_Backdrop_8_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1" --""
-        
+
         XPerl_Frame_Backdrop_256_10_1211.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Raid_Backdrop_16_9_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Raid_Backdrop_32_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Options_Backdrop_256_16_3333.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Options_Backdrop_256_16_5555.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_UISlider_Backdrop_8_8_3366.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
-        
+
         XPerl_Frame_Backdrop_32_16_2222.edgeFile = "Interface\\Addons\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1"
 
         XPerl_PlayernameFrame:SetBackdrop(
@@ -190,7 +190,8 @@ _G["XPerl_Globals"]:HookScript("OnUpdate", function()
             insets = { left = 3, right = 3, top = 3, bottom = 3}
             })
 
-        local targetAnchorAdjustmentValue = 0;  
+        local targetAnchorAdjustmentValue = 0;
+        if(ZPerlConfigNew[GetRealmName()][UnitName("Player")] ~= nil)then
         if ZPerlConfigNew[GetRealmName()][UnitName("Player")].target.level == 1 then -- These can return nil exceptions if the profiles do not exist, considering to use global instead. Although it is heavily considered to Add the profiles fully within ZurichoUI menu.
             targetAnchorAdjustmentValue = 960 + (99 + (XPerl_Player.levelFrame:GetWidth() + 2)*2);
             --print(targetAnchorAdjustmentValue)
@@ -204,7 +205,7 @@ _G["XPerl_Globals"]:HookScript("OnUpdate", function()
         else
             playerAnchorAdjustmentValue = 960 - (99 + XPerl_Player:GetWidth());
         end
-
+        end
         --ZperlConfigNew.global["savedPositions"[GetRealmName()[UnitName("Player")["XPerl_Player"]]]] = {["top"] = ,["height"] = false,["left"]=,["width"]=false,   610   1117}
         ZPerlConfigNew.savedPositions[GetRealmName()][UnitName("Player")].XPerl_Player = {["top"] = 269.2003804418673 ,["height"] = false,["left"]= (playerAnchorAdjustmentValue),["width"]=false,}
         ZPerlConfigNew.savedPositions[GetRealmName()][UnitName("Player")].XPerl_Target = {["top"] = 269.2003804418673 ,["height"] = false,["left"]= (targetAnchorAdjustmentValue),["width"]=false,}
@@ -234,15 +235,15 @@ _G["XPerl_Globals"]:HookScript("OnUpdate", function()
             ["width"] = false,
         }
 
-        
-            
+
+
         --print("ZurichoUI Says ZPerl Is loaded")
         XPerl_RestoreAllPositions()
-    
+
 
     end
     moving = nil
-    plaMoved = true 
+    plaMoved = true
 
 end)
 end
@@ -257,10 +258,10 @@ _G["PlayerFrame"]:HookScript("OnUpdate", function()
     PlayerFrame:SetPoint("BOTTOM", nil, "BOTTOM",-260,180)
     PlayerFrame:SetScale(1.0) -- optional
     --TalkingHeadFrame:SetWidth() -- optional
-    --TalkingHeadFrame:SetHeight(150) -- optional 
+    --TalkingHeadFrame:SetHeight(150) -- optional
     --PlayerFrame:SetMovable(false)
     moving = nil
-    plaMoved = true 
+    plaMoved = true
 
    -- print("Should be setting point to new position")
 end)
@@ -276,9 +277,9 @@ _G["TargetFrame"]:HookScript("OnUpdate", function()
     TargetFrame:SetPoint("BOTTOM", nil, "BOTTOM",260,180)
     TargetFrame:SetScale(1.0) -- optional
     --TalkingHeadFrame:SetWidth() -- optional
-    --TalkingHeadFrame:SetHeight(150) -- optional 
+    --TalkingHeadFrame:SetHeight(150) -- optional
     --TargetFrame:SetMovable(false)
-    moving = nil 
+    moving = nil
     tarMoved = true
    --print("Should be setting point to new position")
 end)
