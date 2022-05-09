@@ -13,6 +13,7 @@
   <ItemGroup>
     <Content Include=".gitattributes" />
     <Content Include=".gitignore" />
+    <Content Include="Changelog.txt" />
     <Content Include="DialogFrame-Corners-ZurichoUIGolden.blp" />
     <Content Include="Libs\AceAddon-3.0\AceAddon-3.0.lua">
       <SubType>Code</SubType>
@@ -75,12 +76,6 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Libs\AceDBOptions-3.0\AceDBOptions-3.0.xml">
-      <SubType>Frame</SubType>
-    </Content>
-    <Content Include="Libs\AceEvent-3.0\AceEvent-3.0.lua">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Libs\AceEvent-3.0\AceEvent-3.0.xml">
       <SubType>Frame</SubType>
     </Content>
     <Content Include="Libs\AceGUI-3.0\AceGUI-3.0.lua">
@@ -185,6 +180,12 @@
     <Content Include="Libs\AceTimer-3.0\AceTimer-3.0.xml">
       <SubType>Frame</SubType>
     </Content>
+    <Content Include="Libs\CallbackHandler-1.0\AceEvent-3.0\AceEvent-3.0.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\CallbackHandler-1.0\AceEvent-3.0\AceEvent-3.0.xml">
+      <SubType>Frame</SubType>
+    </Content>
     <Content Include="Libs\CallbackHandler-1.0\CallbackHandler-1.0.lua">
       <SubType>Code</SubType>
     </Content>
@@ -211,6 +212,7 @@
     </Content>
     <Content Include="Mockupscreenshot.psd" />
     <Content Include="PARKED CODE.txt" />
+    <Content Include="TextFile1.txt" />
     <Content Include="UI-DialogBox-Border-ZurichoUIGolden.blp" />
     <Content Include="UI-DialogBox-Border-ZurichoUISilver1.blp" />
     <Content Include="UI-Player-Portrait-Sketch-Up.blp" />
@@ -327,7 +329,6 @@
     <Folder Include="Libs\AceConsole-3.0\" />
     <Folder Include="Libs\AceDB-3.0\" />
     <Folder Include="Libs\AceDBOptions-3.0\" />
-    <Folder Include="Libs\AceEvent-3.0\" />
     <Folder Include="Libs\AceGUI-3.0\" />
     <Folder Include="Libs\AceGUI-3.0\widgets\" />
     <Folder Include="Libs\AceHook-3.0\" />
@@ -336,6 +337,7 @@
     <Folder Include="Libs\AceTab-3.0\" />
     <Folder Include="Libs\AceTimer-3.0\" />
     <Folder Include="Libs\CallbackHandler-1.0\" />
+    <Folder Include="Libs\CallbackHandler-1.0\AceEvent-3.0\" />
     <Folder Include="Libs\LibSharedMedia-3.0\" />
     <Folder Include="Libs\LibStub\" />
   </ItemGroup>

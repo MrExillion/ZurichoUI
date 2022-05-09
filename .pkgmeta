@@ -11,9 +11,9 @@ externals:
     Libs/LibStub: #Embedded
         url: https://repos.wowace.com/wow/libstub/trunk
         tag: latest
-    Libs/LibSharedMedia3.0:
-        url: https://repos.curseforge.com/wow/libsharedmedia-3-0/trunk libsharedmedia-3-0
-        tag: latest
+    #Libs/LibSharedMedia3.0:
+    #    url: https://repos.curseforge.com/wow/libsharedmedia-3-0/trunk
+    #    tag: latest
   
 
 ignore: # Files and directories beginning with a dot (such as .git) are automatically ignored, as is the pgkmeta file itself.
