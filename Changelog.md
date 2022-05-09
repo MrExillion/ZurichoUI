@@ -1,4 +1,4 @@
-<h1>Relase of Alpha 3 (0.0.3r) Shadowlands Capable</h1>
+<h1>Relase of Alpha 4 (0.0.4) Shadowlands Capable</h1>
 
 <h2>BELOW SECTIONS ARE SUBJECT TO CHANGE UNTIL STATUS SAYS RELEASED</h2>
 
@@ -16,13 +16,13 @@ GUIDE: https://windowsreport.com/windows-10-switches-keyboard-language/
 
 # TOC breakdown:
 * Interface: 90002
-* Title: Zürichos Brugergrænseflade
-* Title-enGB: |cff003399ZurichoUI|cffB61B1BAlpha(0.0.3)
-* Title-enUS: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.3)
-* Title-deDE: |cff003399ZürichoUI |cffB61B1BAlpha(0.0.3)
+* Title: Zürichos Brugergrænseflade |cffB61B1BAlpha(0.0.4)
+* Title-enGB: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.4)
+* Title-enUS: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.4)
+* Title-deDE: |cff003399ZürichoUI |cffB61B1BAlpha(0.0.4)
 * Title-esES: |cff003399El UI Del Zuericho
 * Author: Peder Züricho, zuricho.dk, Pingu#2660
-* Version: 0.0.3 Alpha - Alpha-Release Candidate (still active alpha) WoW:SL capable
+* Version: 0.0.4 Alpha - Alpha-Release Candidate (still active alpha) WoW:SL capable
 * Notes: Minimalistisk brugergrænseflade inspireret af Overwatch, Diablo og Mobas i et forsøg på en enklere brugergrænseflade
 * Notes-enGB: Minimalistic UI inspired by Overwatch, Diablo, and mobas, for a more simple UI
 * Notes-enUS: Clean UI inspired by Overwatch, Diablo, and mobas, for a more simple UI
@@ -34,8 +34,8 @@ GUIDE: https://windowsreport.com/windows-10-switches-keyboard-language/
 
 * Paging functionality has been vastly supported for some time now and is considered stable.
 * XP Wheel holds hidden Talent Functions which can be used in macros with success, future plans are to add a Module or standalone AddonFor saved talent builds.
-* Alpha3 - Includes a menu feature that has some issues at times, and can be found in GameMenu(Esc)>Interface>Addons>ZurichoUI - Features include Gui for colour picking presets for inner xpwheel and overlayframe, and the posibility to track reputation while leveling, and stance bar show/hide. More to come.
-* Alpha3 - Also includes a media Register to SharedMedia Lib, of own borders (new) and adds dispell voice sound if DBM VPEnglish Female is installed. I use this with Vuhdomyself. In the future i intend to add my own voice pack as a module.
+* Alpha4 - Includes a menu feature that has some issues at times, and can be found in GameMenu(Esc)>Interface>Addons>ZurichoUI - Features include Gui for colour picking presets for inner xpwheel and overlayframe, and the posibility to track reputation while leveling, and stance bar show/hide. More to come.
+* Alpha4 - Also includes a media Register to SharedMedia Lib, of own borders (new) and adds dispell voice sound if DBM VPEnglish Female is installed. I use this with Vuhdomyself. In the future i intend to add my own voice pack as a module.
 
  
 
