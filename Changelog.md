@@ -15,7 +15,7 @@ GUIDE: https://windowsreport.com/windows-10-switches-keyboard-language/
  
 
 # TOC breakdown:
-* Interface: 90002
+* Interface: 90200
 * Title: Zürichos Brugergrænseflade |cffB61B1BAlpha(0.0.4)
 * Title-enGB: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.4)
 * Title-enUS: |cff003399ZurichoUI |cffB61B1BAlpha(0.0.4)
