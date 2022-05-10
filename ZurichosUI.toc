@@ -17,6 +17,8 @@
 ## X-Embeds: LibStub
 ## X-Embeds: CallbackHandler-1.0
 ## X-Curse-Project-ID: 409968 
+## X-Wago-ID: yQKyeYK7
+
 
 ##SavedVariablesPerCharacter: classColorPaladin classColorDruid classColorAll StanceShow repWhileLeveling silverXPWheel noFrameXPWheel classColorXPWheel
 # LoadOnDemand: 1
