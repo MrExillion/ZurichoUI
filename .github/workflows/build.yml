@@ -1,0 +1,16 @@
+- name: WoW Packager
+  # You may pin to the exact commit or the version.
+  # uses: BigWigsMods/packager@a424b2e83dc6b6e7637e495063beb37f7cfebd14
+  uses: BigWigsMods/packager@v2.0.3
+  with:
+    # Command-line arguments. See https://github.com/BigWigsMods/packager#usage
+    args: # optional
+    # Install pandoc before packaging if uploading to WoWInterface.
+    pandoc: # optional, default is true
+    
+    
+- name: Create Package
+  uses: BigWigsMods/packager@master
+        env:
+          # This section might already create other env variables, just append the WAGO_API_TOKEN to these
+          WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
