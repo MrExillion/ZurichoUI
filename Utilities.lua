@@ -1,7 +1,7 @@
 local frame = CreateFrame('Frame', 'myUtilityBar', UIParent, BackdropTemplateMixin and "BackdropTemplate")
 frame:SetPoint("RIGHT",0,-UIParent:GetHeight()/2 + 48)
-frame:SetWidth(MicroButtonAndBagsBar:GetWidth()-25)
-frame:SetHeight(100)
+frame:SetWidth(MicroButtonAndBagsBar:GetWidth()+100)
+frame:SetHeight(104)
 
 -- frame:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
 --            edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border", tile=true,tileSize=32,edgeSize=32,
@@ -29,7 +29,7 @@ frame2:SetBackdrop({bgFile="Interface\\DialogFrame\\UI-DialogBox-Background",
            edgeFile="Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1", tile=true,tileSize=32,edgeSize=32,
            insets= {left=11,right=12,top=12,bottom=11}})              
            
-frame2:SetBackdropColor(1,1,1,1);
+frame2:SetBackdropColor(1,1,1,0);
 frame2:SetPoint(frame:GetPoint(),frame,-frame:GetWidth() +10 ,-frame:GetHeight()/2 + 50)
 
 --local btnTestClone = CreateFrame('Frame', 'testButton', UIParent, "SecureActionButtonTemplate, ActionButtonTemplate" )
@@ -86,12 +86,54 @@ local zPagingFrame = CreateFrame("FRAME", nil, nil, "SecureHandlerStateTemplate"
 for i = 1,5 do
     _G["PetActionButton"..6-i]:ClearAllPoints();
     _G["PetActionButton"..11-i]:ClearAllPoints();
-    _G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
-    _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-11)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
-    --_G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
-    --_G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
+    _G["PetActionButton"..6-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
+    _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-11)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
+    --_G["PetActionButton"..6-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
+    --_G["PetActionButton"..11-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
 
 
+end
+
+function PetActionBarMover() 
+
+PetActionBar:ClearAllPoints();
+PetActionBar:SetPoint("BOTTOMLEFT", "myActionBar", "TOPLEFT", -(PetActionBar:GetWidth()/10),0);
+
+for i = 1,5 do
+    --_G["PetActionButton"..6-i]:ClearAllPoints();
+    --_G["PetActionButton"..11-i]:ClearAllPoints();
+    --_G["PetActionButton"..6-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
+    --_G["PetActionButton"..11-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-11)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
+    --_G["PetActionButton"..6-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
+    --_G["PetActionButton"..11-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
+
+
+end
+end
+
+function UtilityMover()
+for i = 6,12 do
+
+    _G["MultiBarBottomRightButton"..i]:ClearAllPoints()
+    _G["MultiBarBottomLeftButton"..i]:ClearAllPoints()
+    _G["MultiBarRightButton"..i]:ClearAllPoints()
+    _G["MultiBarLeftButton"..i]:ClearAllPoints()
+    
+
+    _G["MultiBarBottomRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-17)
+    _G["MultiBarBottomLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-26)
+    _G["MultiBarRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-17)
+    _G["MultiBarLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-26)
+
+
+
+    _G["MultiBarBottomRightButton"..i]:Hide()
+    _G["MultiBarBottomLeftButton"..i]:Hide()
+    _G["MultiBarRightButton"..i]:Show()
+    _G["MultiBarLeftButton"..i]:Show()
+
+    _G["ActionButton"..i]:Hide() 
+end
 end
 
 for i = 6,12 do
@@ -271,14 +313,17 @@ zPagingFrame:SetScript("OnEvent", function(self, event, ...)
 		--self:UpdatePageDisplay();
 
 	end
+
+    
 end);
 
 
 
 ---experiment ends
     frame:SetScript("OnUpdate", function()     
-
-
+           UtilityMover()
+        PetActionBarMover() 
+    
         
         UtilitySet2()
         
@@ -413,7 +458,7 @@ end);
 
              for i = 6,12 do
                 _G["MultiBarBottomRightButton"..i]:Hide()
-               _G["MultiBarBottomLeftButton"..i]:Hide()
+                _G["MultiBarBottomLeftButton"..i]:Hide()
                 _G["MultiBarRightButton"..i]:Show()
                 _G["MultiBarLeftButton"..i]:Show()
             end 
@@ -421,8 +466,8 @@ end);
             for i = 1,5 do
                 _G["PetActionButton"..6-i]:ClearAllPoints();
                 _G["PetActionButton"..11-i]:ClearAllPoints();
-                _G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
-                _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-11)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
+                _G["PetActionButton"..6-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-6)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
+                _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-11)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
                 --_G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
                 --_G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
             

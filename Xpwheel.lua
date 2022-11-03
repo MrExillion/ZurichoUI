@@ -603,7 +603,7 @@ function xpwheel:OnEvent(self,event, ...)
         
         honorLevel = UnitHonorLevel("player")
         xpwheel.Background = CreateFrame("Frame","XpWheelBackground",xpwheel,BackdropTemplateMixin and "BackdropTemplate")
-        --handleStanceBar()
+        handleStanceBar()
 
 
 if(classColorPaladin == true)then
@@ -881,7 +881,9 @@ xpwheel:HookScript("OnEvent", function(self, event) xpwheel:OnEvent(self, event)
 
  xpwheel:SetScript("OnLoad", function() xpwheel:Onload() end)
 
-xpwheel:SetScript("OnUpdate", function() update() end)
+xpwheel:SetScript("OnUpdate", function() 
+	update()
+end)
 
 function xpwheel:OnLoad() 
 
@@ -1279,19 +1281,19 @@ function xpwheel.ReputationBarRing:Update()
 	local name, reaction, minBar, maxBar, value, factionID = GetWatchedFactionInfo();
 	local colorIndex = reaction;
 	local isCapped;
-	local friendshipID = GetFriendshipReputation(factionID);
+	local friendshipID = C_GossipInfo.GetFriendshipReputation(factionID);
 	
 	if ( self.factionID ~= factionID ) then
 			self.factionID = factionID;
-			self.friendshipID = GetFriendshipReputation(factionID);
+			self.friendshipID = C_GossipInfo.GetFriendshipReputation(factionID);
 		end
 	
 	-- do something different for friendships
 	local level;
 	
 	if ( friendshipID ) then
-		local friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = GetFriendshipReputation(factionID);
-		level = GetFriendshipReputationRanks(factionID);
+		local friendID, friendRep, friendMaxRep, friendName, friendText, friendTexture, friendTextLevel, friendThreshold, nextFriendThreshold = C_GossipInfo.GetFriendshipReputation(factionID);
+		level = C_GossipInfo.GetFriendshipReputationRanks(factionID);
 		if ( nextFriendThreshold ) then
 			minBar, maxBar, value = friendThreshold, nextFriendThreshold, friendRep;
 		else
@@ -1850,21 +1852,21 @@ SlashCmdList["HELP"] = function(...)
  print("/ZurichoDruid -> Manually Swap (on/off) Druid Colours")
  print("/ZurichoClassColor -> Manually Swap (on/off) Class Colours")
  print("If no colour is chosen, it defaults to Faction Colours")
- print("/ZurichoStance -> Manually Swap (on/off) StanceBarFrame On or Off")
+ print("/ZurichoStance -> Manually Swap (on/off) StanceBar On or Off")
 
 end 
 
 
 
-StanceBarFrame:RegisterEvent("VARIABLES_LOADED")
+StanceBar:RegisterEvent("VARIABLES_LOADED")
 
-StanceBarFrame:HookScript("OnEvent", function(self, event, ...)
+StanceBar:HookScript("OnEvent", function(self, event, ...)
     if (event == "VARIABLES_LOADED") then
     
    -- print(StanceShow)
    
     handleStanceBar()
-    StanceBarFrame:UnregisterEvent("VARIABLES_LOADED")
+    StanceBar:UnregisterEvent("VARIABLES_LOADED")
     end
 end)
 
@@ -1876,11 +1878,11 @@ function handleStanceBar()
 
     if(StanceShow == true) then
 
-        RegisterStateDriver(StanceBarFrame, "visibility", "show")
+        RegisterStateDriver(StanceBar, "visibility", "show")
         
     elseif(StanceShow == false) then
         
-        RegisterStateDriver(StanceBarFrame, "visibility", "hide")
+        RegisterStateDriver(StanceBar, "visibility", "hide")
 
     else
         print("nil exception")

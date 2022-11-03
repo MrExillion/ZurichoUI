@@ -2,9 +2,10 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <Script file="MainLua.lua" />
    <Frame name="MyAddon_MyFrame" parent="UIParent" toplevel="true" enableMouse="false">
+	   <Scripts>
     <OnLoad> self:RegisterEvent("PLAYER_ENTERING_WORLD"); </OnLoad>
    <OnEvent> print("Hello World! Hello " .. event); </OnEvent>
-   
+	   </Scripts>
     
      <Size>
        <AbsDimension x="200" y="60" />
@@ -17,10 +18,14 @@
    </Frame>
     <Script file="XPWHEEL.lua" />
     <Frame name="xpeventFrameListner" parent="UIParent" toplevel="true" enableMouse="false">
-    <Scritps>
-    <OnLoad> self:RegisterEvent("PLAYER_ENTERING_WORLD"); </OnLoad>
-   <OnEvent> print("Hello World! Hello " .. event); </OnEvent>
-    </Scritps>
+    <Scripts>
+        <OnLoad>
+			self:RegisterEvent("PLAYER_ENTERING_WORLD");
+		</OnLoad>
+        <OnEvent>
+			--print("Hello World! Hello " .. event); 
+		</OnEvent>
+    </Scripts>
      <Size>
        <AbsDimension x="200" y="60" />
      </Size>

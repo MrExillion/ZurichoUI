@@ -11,17 +11,17 @@ if (IsAddOnLoaded("DBM-VPEnglish female")) then
 media:Register("sound", "Voice: VPEnglish-Female - Dispell Now", "Interface\\AddOns\\DBM-VPEnglish female\\dispelnow.ogg")
 end
 
-
- UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
- UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
- UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarLeft'] = nil
- UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarRight'] = nil
-
-
+       --UIParentManagedFrameContainerMixin:RemoveManagedFrame('MainMenuBar');
+     --UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomLeft'] = nil
+     --UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarBottomRight'] = nil
+     --UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarLeft'] = nil
+     --UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarRight'] = nil
+       --_G['MainMenuBar']:SetAttribute("uiparent-manage", false);
+_G['MainMenuBar']:SetAttribute("layoutParent", nil)
  
 local frame = CreateFrame('Frame', 'myActionBar', UIParent, BackdropTemplateMixin and "BackdropTemplate")
 frame:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 150)
-frame:SetWidth(220)
+frame:SetWidth(250)
 frame:SetHeight(60)
 frame:RegisterEvent("ACTIONBAR_SLOT_CHANGED");
 frame:RegisterEvent("MODIFIER_STATE_CHANGED");
@@ -59,8 +59,8 @@ framePage2:RegisterEvent("PLAYER_XP_UPDATE")
 framePage2:RegisterEvent("UPDATE_EXHAUSTION")
 
 _G["ExtraActionButton1"]:ClearAllPoints()
-_G["ExtraActionButton1"]:SetPoint("BOTTOMLEFT",frame,-40,-100)
-
+--_G["ExtraActionButton1"]:SetPoint("BOTTOMLEFT",frame,-40,-100)
+_G["ExtraActionButton1"]:SetPoint("BOTTOMLEFT",frame,"BOTTOMLEFT",-16,0)
 
 
 function MoveActionButtons(j,n,barnum)
@@ -79,9 +79,9 @@ function MoveActionButtons(j,n,barnum)
             _G["ActionButton"..i+j]:SetParent(frame,"CENTER")
             _G["ActionButton"..i+j]:ClearAllPoints()
             if(k==1)then 
-                _G["ActionButton"..i+j]:SetPoint("CENTER", "myButton",0,0)
+                _G["ActionButton"..i+j]:SetPoint("CENTER", "myButton", "CENTER",-25,0)
             else
-                _G["ActionButton"..i+j]:SetPoint("CENTER", "myButton", (_G['btn'..k]:GetWidth()*k+4*k) - (_G['btn']:GetWidth()+4),0)
+                _G["ActionButton"..i+j]:SetPoint("CENTER", "myButton", (_G['btn'..k]:GetWidth()-4) - (_G['btn']:GetWidth()-4) - 5,0)
             end
         
 
@@ -89,9 +89,9 @@ function MoveActionButtons(j,n,barnum)
             _G["MultiBarBottomLeftButton"..i+j]:SetParent(frame,"CENTER")
             _G["MultiBarBottomLeftButton"..i+j]:ClearAllPoints()
             if(k==1)then 
-                _G["MultiBarBottomLeftButton"..i+j]:SetPoint("CENTER", "myButton",0,0)
+                _G["MultiBarBottomLeftButton"..i+j]:SetPoint("CENTER", "myButton",-8,0)
             else
-                _G["MultiBarBottomLeftButton"..i+j]:SetPoint("CENTER", "myButton", (_G['btn'..k]:GetWidth()*k+4*k) - (_G['btn']:GetWidth()+4),0)
+                _G["MultiBarBottomLeftButton"..i+j]:SetPoint("CENTER", "myButton", (_G['btn'..k]:GetWidth()*k-4) - (_G['btn']:GetWidth()-4),0)
             end
         
   
@@ -220,23 +220,24 @@ function frame:PLAYER_ENTERING_WORLD(self,event,...)
     
     point, relativeTo, relativePoint, xOfs, yOfs = _G["ObjectiveTrackerFrame"]:GetPoint() ]]
 
-    SHOW_MULTI_ACTIONBAR_1=true SHOW_MULTI_ACTIONBAR_2=true SHOW_MULTI_ACTIONBAR_3=true SHOW_MULTI_ACTIONBAR_4=true InterfaceOptions_UpdateMultiActionBars()
-    local moving
-    hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self)
-        if moving then
-            return
-        end
-        moving = true
-        self:SetMovable(true)
-        self:SetUserPlaced(true)
-        self:ClearAllPoints()
-        self:SetPoint("CENTER", UIParent, "CENTER",GetScreenWidth()/2+75,0)
-        self:SetScale(0.8) -- optional
-        self:SetWidth(300) -- optional
-        self:SetHeight(800) -- optional
-        self:SetMovable(false)
-        moving = nil
-    end)
+        --SHOW_MULTI_ACTIONBAR_1=true SHOW_MULTI_ACTIONBAR_2=true SHOW_MULTI_ACTIONBAR_3=true SHOW_MULTI_ACTIONBAR_4=true 
+	--InterfaceOptions_UpdateMultiActionBars()
+  --  local moving
+    --hooksecurefunc(ObjectiveTrackerFrame, "SetPoint", function(self)
+    --    if moving then
+    --        return
+    --    end
+    --    moving = true
+    --    self:SetMovable(true)
+    --    self:SetUserPlaced(true)
+    --    self:ClearAllPoints()
+    --    self:SetPoint("CENTER", UIParent, "CENTER",GetScreenWidth()/2+75,0)
+    --    self:SetScale(0.8) -- optional
+    --    self:SetWidth(300) -- optional
+    --    self:SetHeight(800) -- optional
+    --    self:SetMovable(false)
+    --    moving = nil
+    --end)
 
 
 
@@ -259,695 +260,15 @@ function frame:PLAYER_ENTERING_WORLD(self,event,...)
        NoLoopMover(1,2,3,4,5,10)
        
        
-       end
+        
+	   else
+       
+	   NoLoopMover(1,2,3,4,5,1)
+	   end
 
 
 
---[[ if(englishClass == "DRUIDOLD") then
-btn:SetNormalTexture(GetActionTexture(109))
 
-btn:GetNormalTexture():SetScale(0.1) 
-btn_icon:SetWidth(60)
-btn_icon:SetHeight(60)
-btn_icon:SetPoint("CENTER")
-btn.text = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn.text:SetPoint("BOTTOM", btn, "TOPLEFT", 5,-12)
-local btn_hotkey = GetBindingKey("ACTIONBUTTON"..1)
-btn.text:SetText(btn_hotkey)
-btn:SetPushedTexture(GetActionTexture(109))
-btn:GetPushedTexture():SetScale(0.1)
-
-NoLoopMover(6,7,8,9,10,2) -- ctrl
-NoLoopMover(1,2,3,4,5,1)
-NoLoopMover(6,7,8,9,10,1) --Shift
-
-
-NoLoopMover(1,2,3,4,5,2) -- alt   
-
-
-
-
-
-btn:SetAttribute("type", "action");
-
-
-btn2:SetAttribute("action", 110);
-local btn2_icon = btn2:CreateTexture("myButton2","OVERLAY")
-
-btn2:SetNormalTexture(GetActionTexture(110))
-btn2:GetNormalTexture():SetScale(0.1) 
-btn2:SetPushedTexture(GetActionTexture(110))
-btn2:GetPushedTexture():SetScale(0.1) 
-
-btn2_icon:SetWidth(60)
-btn2_icon:SetHeight(60)
-btn2_icon:SetPoint("CENTER")
-btn2.text = btn2:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn2.text:SetPoint("BOTTOM", btn2, "TOPLEFT", 5,-12)
-local btn_hotkey2 = GetBindingKey("ACTIONBUTTON"..2)
-btn2.text:SetText(btn_hotkey2)
-
-btn2:SetAttribute("type", "action");
-
-btn3:SetAttribute("action", 111);
-local btn3_icon = btn3:CreateTexture("myButton3","OVERLAY")
-
-btn3:SetNormalTexture(GetActionTexture(111))
-btn3:GetNormalTexture():SetScale(0.1)
-btn3:SetPushedTexture(GetActionTexture(111))
-btn3:GetPushedTexture():SetScale(0.1) 
-btn3_icon:SetWidth(60)
-btn3_icon:SetHeight(60)
-btn3_icon:SetPoint("CENTER")
-btn3.text = btn3:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn3.text:SetPoint("BOTTOM", btn3, "TOPLEFT", 5,-12)
-local btn_hotkey3 = GetBindingKey("ACTIONBUTTON"..3)
-btn3.text:SetText(btn_hotkey3)
-
-btn3:SetAttribute("type", "action");
-
-
-
-btn4:SetAttribute("action", 112);
-local btn4_icon = btn4:CreateTexture("myButton4","OVERLAY")
-
-btn4:SetNormalTexture(GetActionTexture(112))
-btn4:GetNormalTexture():SetScale(0.1) 
-btn4:SetPushedTexture(GetActionTexture(112))
-btn4:GetPushedTexture():SetScale(0.1)
-btn4_icon:SetWidth(60)
-btn4_icon:SetHeight(60)
-btn4_icon:SetPoint("CENTER")
-    btn4.text = btn4:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    btn4.text:SetPoint("BOTTOM", btn4, "TOPLEFT", 5,-12)
-    local btn_hotkey4 = GetBindingKey("ACTIONBUTTON"..4)
-    btn4.text:SetText(btn_hotkey4)
-
-btn4:SetAttribute("type", "action");
-
-btn5:SetAttribute("action", 113);
-local btn5_icon = btn5:CreateTexture("myButton5","OVERLAY")
-
-btn5:SetNormalTexture(GetActionTexture(113))
-btn5:GetNormalTexture():SetScale(0.1) 
-btn5:SetPushedTexture(GetActionTexture(115))
-btn5:GetPushedTexture():SetScale(0.1)
-btn5_icon:SetWidth(60)
-btn5_icon:SetHeight(60)
-btn5_icon:SetPoint("CENTER")
-
-
-btn5:SetText("F")
-btn5.text = btn5:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn5.text:SetPoint("BOTTOM", btn5, "TOPLEFT", 5,-12)
-local btn_hotkey5 = GetBindingKey("ACTIONBUTTON"..5)
-btn5.text:SetText(btn_hotkey5)
-
-btn5:SetAttribute("type", "action");
-
-
-
-
----
-if GetShapeshiftForm() == 4 then
-    alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    btn:SetAttribute("action", 109);
-
-    btn:SetNormalTexture(GetActionTexture(109))
-    btn:SetPushedTexture(GetActionTexture(109))
-
-    if (not btn:GetNormalTexture() == nil ) then
-        btn:GetNormalTexture():SetScale(0.1) 
-        btn:GetPushedTexture():SetScale(0.1)
-    end 
-    btn:SetAttribute("type", "action");
-    btn:SetText("Q")
-
-    btn2:SetAttribute("action", 110);
-
-    btn2:SetNormalTexture(GetActionTexture(110))
-    btn2:SetPushedTexture(GetActionTexture(110))
-    if (not btn2:GetNormalTexture() == nil ) then
-        btn2:GetNormalTexture():SetScale(0.1) 
-        btn2:GetPushedTexture():SetScale(0.1)
-        end
-    btn2:SetAttribute("type", "action");
-    btn2:SetText("E")
-
-
-    btn3:SetAttribute("action", 111);
-    btn3:SetNormalTexture(GetActionTexture(111))
-    btn3:SetPushedTexture(GetActionTexture(111))
-    if (not btn3:GetNormalTexture() == nil ) then
-        btn3:GetNormalTexture():SetScale(0.1) 
-        btn3:GetPushedTexture():SetScale(0.1)    
-    end
-    btn3:SetAttribute("type", "action");
-    btn3:SetText("R")
-
-
-
-    btn4:SetAttribute("action", 112);
-    btn4:SetNormalTexture(GetActionTexture(112))
-    btn4:SetPushedTexture(GetActionTexture(112))
-    if (not btn4:GetNormalTexture() == nil ) then
-        btn4:GetNormalTexture():SetScale(0.1) 
-        btn4:GetPushedTexture():SetScale(0.1)    
-    end
-    btn4:SetAttribute("type", "action");
-    btn4:SetText("T")
-
-    btn5:SetAttribute("action", 113);
-
-    btn5:SetNormalTexture(GetActionTexture(113))
-    btn5:SetPushedTexture(GetActionTexture(113))
-    if (not btn5:GetNormalTexture() == nil ) then
-        btn5:GetNormalTexture():SetScale(0.1) 
-        btn5:GetPushedTexture():SetScale(0.1)    
-    end
-    btn5:SetAttribute("type", "action");
-    btn5:SetText("F")
-
-    
-    elseif GetShapeshiftForm() == 0  or GetShapeshiftForm() == 5 or GetShapeshiftForm() == 6 or GetShapeshiftForm() == 3 then
-    alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    btn:SetAttribute("action", 1);
-
-    btn:SetNormalTexture(GetActionTexture(1))
-    btn:SetPushedTexture(GetActionTexture(1))
-        if (not btn:GetNormalTexture() == nil ) then
-            btn:GetNormalTexture():SetScale(0.1)
-            btn:GetPushedTexture():SetScale(0.1) 
-        end 
-    btn:SetAttribute("type", "action");
-    btn:SetText("Q")
-
-    btn2:SetAttribute("action", 2);
-
-    btn2:SetNormalTexture(GetActionTexture(2))
-    btn2:SetPushedTexture(GetActionTexture(2))
-        if (not btn2:GetNormalTexture() == nil ) then
-            btn2:GetNormalTexture():SetScale(0.1)
-            btn2:GetPushedTexture():SetScale(0.1) 
-        end
-    btn2:SetAttribute("type", "action");
-    btn2:SetText("E")
-
-
-    btn3:SetAttribute("action", 3);
-    btn3:SetNormalTexture(GetActionTexture(3))
-    btn3:SetPushedTexture(GetActionTexture(3))
-        if (not btn3:GetNormalTexture() == nil ) then
-            btn3:GetNormalTexture():SetScale(0.1)
-            btn3:GetPushedTexture():SetScale(0.1) 
-        end
-    btn3:SetAttribute("type", "action");
-    btn3:SetText("R")
-
-
-
-    btn4:SetAttribute("action", 4);
-    btn4:SetNormalTexture(GetActionTexture(4))
-    btn4:SetPushedTexture(GetActionTexture(4))
-        if (not btn4:GetNormalTexture() == nil ) then
-            btn4:GetNormalTexture():SetScale(0.1)
-            btn4:GetPushedTexture():SetScale(0.1) 
-        end
-    btn4:SetAttribute("type", "action");
-    btn4:SetText("T")
-
-    btn5:SetAttribute("action", 5);
-
-    btn5:SetNormalTexture(GetActionTexture(5))
-    btn5:SetPushedTexture(GetActionTexture(5))
-        if (not btn5:GetNormalTexture() == nil ) then
-            btn5:GetNormalTexture():SetScale(0.1)
-            btn5:GetPushedTexture():SetScale(0.1) 
-        end
-    btn5:SetAttribute("type", "action");
-    btn5:SetText("F")
-
-    
-
-    elseif GetShapeshiftForm() == 1 then
-        alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    btn:SetAttribute("action", 97);
-
-    btn:SetNormalTexture(GetActionTexture(97))
-    btn:SetPushedTexture(GetActionTexture(97))
-        if (not btn:GetNormalTexture() == nil ) then
-            btn:GetNormalTexture():SetScale(0.1)
-            btn:GetPushedTexture():SetScale(0.1) 
-        end 
-    btn:SetAttribute("type", "action");
-    btn:SetText("Q")
-
-    btn2:SetAttribute("action", 98);
-
-    btn2:SetNormalTexture(GetActionTexture(98))
-    btn2:SetPushedTexture(GetActionTexture(98))
-        if (not btn2:GetNormalTexture() == nil ) then
-            btn2:GetNormalTexture():SetScale(0.1)
-            btn2:GetPushedTexture():SetScale(0.1) 
-        end
-    btn2:SetAttribute("type", "action");
-    btn2:SetText("E")
-
-    btn3:SetAttribute("action", 99);
-    btn3:SetNormalTexture(GetActionTexture(99))
-    btn3:SetPushedTexture(GetActionTexture(99))
-        if (not btn3:GetNormalTexture() == nil ) then
-            btn3:GetNormalTexture():SetScale(0.1)
-            btn3:GetPushedTexture():SetScale(0.1) 
-        end
-    btn3:SetAttribute("type", "action");
-    btn3:SetText("R")
-
-
-
-    btn4:SetAttribute("action", 100);
-    btn4:SetNormalTexture(GetActionTexture(100))
-    btn4:SetPushedTexture(GetActionTexture(100))
-        if (not btn4:GetNormalTexture() == nil ) then
-            btn4:GetNormalTexture():SetScale(0.1)
-            btn4:GetPushedTexture():SetScale(0.1) 
-        end
-    btn4:SetAttribute("type", "action");
-    btn4:SetText("T")
-
-    btn5:SetAttribute("action", 101);
-
-    btn5:SetNormalTexture(GetActionTexture(101))
-    btn5:SetPushedTexture(GetActionTexture(101))
-        if (not btn5:GetNormalTexture() == nil ) then
-            btn5:GetNormalTexture():SetScale(0.1)
-            btn5:GetPushedTexture():SetScale(0.1) 
-        end
-    btn5:SetAttribute("type", "action");
-    btn5:SetText("F")
-
-
-
-    --ActionBar page 1 Cat Form: slots 73 to 84
-    --ActionBar page 1 Prowl: slots 85 to 96
-
-    elseif GetShapeshiftForm() == 2 then
-            if IsStealthed() == 1 then
-                alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-                alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-                shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-                shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-                ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-                ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-            
-                btn:SetAttribute("action", 85);
-
-                btn:SetNormalTexture(GetActionTexture(85))
-                btn:SetPushedTexture(GetActionTexture(85))
-                    if (not btn:GetNormalTexture() == nil ) then
-                        btn:GetNormalTexture():SetScale(0.1)
-                        btn:GetPushedTexture():SetScale(0.1) 
-                    end 
-                btn:SetAttribute("type", "action");
-                btn:SetText("Q")
-            
-                btn2:SetAttribute("action", 86);
-
-                btn2:SetNormalTexture(GetActionTexture(86))
-                btn2:SetPushedTexture(GetActionTexture(86))
-                    if (not btn2:GetNormalTexture() == nil ) then
-                        btn2:GetNormalTexture():SetScale(0.1)
-                        btn2:GetPushedTexture():SetScale(0.1) 
-                    end
-                btn2:SetAttribute("type", "action");
-                btn2:SetText("E")
-
-            
-                btn3:SetAttribute("action", 87);
-                btn3:SetNormalTexture(GetActionTexture(87))
-                btn3:SetPushedTexture(GetActionTexture(87))
-                    if (not btn3:GetNormalTexture() == nil ) then
-                        btn3:GetNormalTexture():SetScale(0.1)
-                        btn3:GetPushedTexture():SetScale(0.1) 
-                    end
-                btn3:SetAttribute("type", "action");
-                btn3:SetText("R")
-            
-            
-            
-                btn4:SetAttribute("action", 88);
-                btn4:SetNormalTexture(GetActionTexture(88))
-                btn4:SetPushedTexture(GetActionTexture(88))
-                    if (not btn4:GetNormalTexture() == nil ) then
-                        btn4:GetNormalTexture():SetScale(0.1)
-                        btn4:GetPushedTexture():SetScale(0.1) 
-                    end
-                btn4:SetAttribute("type", "action");
-                btn4:SetText("T")
-            
-                btn5:SetAttribute("action", 89);
-                
-                btn5:SetNormalTexture(GetActionTexture(89))
-                btn5:SetPushedTexture(GetActionTexture(89))
-                    if (not btn5:GetNormalTexture() == nil ) then
-                        btn5:GetNormalTexture():SetScale(0.1)
-                        btn5:GetPushedTexture():SetScale(0.1) 
-                    end
-                btn5:SetAttribute("type", "action");
-                btn5:SetText("F")
-            
-            else
-                alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    btn:SetAttribute("action", 73);
-
-    btn:SetNormalTexture(GetActionTexture(73))
-    btn:SetPushedTexture(GetActionTexture(73))
-        if (not btn:GetNormalTexture() == nil ) then
-            btn:GetNormalTexture():SetScale(0.1)
-            btn:GetPushedTexture():SetScale(0.1) 
-        end 
-    btn:SetAttribute("type", "action");
-    btn:SetText("Q")
-
-    btn2:SetAttribute("action", 74);
-
-    btn2:SetNormalTexture(GetActionTexture(74))
-    btn2:SetPushedTexture(GetActionTexture(74))
-        if (not btn2:GetNormalTexture() == nil ) then
-            btn2:GetNormalTexture():SetScale(0.1)
-            btn2:GetPushedTexture():SetScale(0.1) 
-        end
-    btn2:SetAttribute("type", "action");
-    btn2:SetText("E")
-
-
-    btn3:SetAttribute("action", 75);
-    btn3:SetNormalTexture(GetActionTexture(75))
-    btn3:SetPushedTexture(GetActionTexture(75))
-        if (not btn3:GetNormalTexture() == nil ) then
-            btn3:GetNormalTexture():SetScale(0.1)
-            btn3:GetPushedTexture():SetScale(0.1) 
-        end
-    btn3:SetAttribute("type", "action");
-    btn3:SetText("R")
-
-
-
-    btn4:SetAttribute("action", 76);
-    btn4:SetNormalTexture(GetActionTexture(76))
-    btn4:SetPushedTexture(GetActionTexture(76))
-        if (not btn4:GetNormalTexture() == nil ) then
-            btn4:GetNormalTexture():SetScale(0.1)
-            btn4:GetPushedTexture():SetScale(0.1) 
-        end
-    btn4:SetAttribute("type", "action");
-    btn4:SetText("T")
-
-    btn5:SetAttribute("action", 77);
-
-    btn5:SetNormalTexture(GetActionTexture(77))
-    btn5:SetPushedTexture(GetActionTexture(77))
-        if (not btn5:GetNormalTexture() == nil ) then
-            btn5:GetNormalTexture():SetScale(0.1)
-            btn5:GetPushedTexture():SetScale(0.1) 
-        end
-    btn5:SetAttribute("type", "action");
-    btn5:SetText("F")
-
-            end
-    else
-    end  
-elseif(englishClass == "PALADIN" or englishClass == "DRUID") then
-
-
-btn:SetNormalTexture(GetActionTexture(1))
-
-btn:GetNormalTexture():SetScale(0.1) 
-btn_icon:SetWidth(60)
-btn_icon:SetHeight(60)
-btn_icon:SetPoint("CENTER")
-btn.text = btn:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn.text:SetPoint("BOTTOM", btn, "TOPLEFT", 5,-12)
-local btn_hotkey = GetBindingKey("ACTIONBUTTON"..1)
-btn:SetButtonState(btn:GetButtonState("ACTIONBUTTON"..1))
-btn.text:SetText(btn_hotkey)
-btn:SetPushedTexture(GetActionTexture(1))
-btn:GetPushedTexture():SetScale(0.1)
-
-
-
-
-
-
-
-btn:SetAttribute("type", "action");
-
-
-btn2:SetAttribute("action", 2);
-
-local btn2_icon = btn2:CreateTexture("myButton2","OVERLAY")
-
-btn2:SetNormalTexture(GetActionTexture(2))
-btn2:GetNormalTexture():SetScale(0.1) 
-btn2:SetPushedTexture(GetActionTexture(2))
-btn2:GetPushedTexture():SetScale(0.1) 
-
-btn2_icon:SetWidth(60)
-btn2_icon:SetHeight(60)
-btn2_icon:SetPoint("CENTER")
-btn2.text = btn2:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn2.text:SetPoint("BOTTOM", btn2, "TOPLEFT", 5,-12)
-local btn_hotkey2 = GetBindingKey("ACTIONBUTTON"..2)
-btn2.text:SetText(btn_hotkey2)
-
-btn2:SetAttribute("type", "action");
-
-
-btn3:SetAttribute("action", 3);
-local btn3_icon = btn3:CreateTexture("myButton3","OVERLAY")
-
-btn3:SetNormalTexture(GetActionTexture(3))
-btn3:GetNormalTexture():SetScale(0.1)
-btn3:SetPushedTexture(GetActionTexture(3))
-btn3:GetPushedTexture():SetScale(0.1) 
-btn3_icon:SetWidth(60)
-btn3_icon:SetHeight(60)
-btn3_icon:SetPoint("CENTER")
-btn3.text = btn3:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn3.text:SetPoint("BOTTOM", btn3, "TOPLEFT", 5,-12)
-local btn_hotkey3 = GetBindingKey("ACTIONBUTTON"..3)
-btn3.text:SetText(btn_hotkey3)
-
-btn3:SetAttribute("type", "action");
-
-
-
-
-btn4:SetAttribute("action", 4);
-local btn4_icon = btn4:CreateTexture("myButton4","OVERLAY")
-
-btn4:SetNormalTexture(GetActionTexture(4))
-
-btn4:SetPushedTexture(GetActionTexture(4))
-btn4:GetPushedTexture():SetScale(0.1)
-btn4_icon:SetWidth(60)
-btn4_icon:SetHeight(60)
-btn4_icon:SetPoint("CENTER")
-    btn4.text = btn4:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    btn4.text:SetPoint("BOTTOM", btn4, "TOPLEFT", 5,-12)
-    local btn_hotkey4 = GetBindingKey("ACTIONBUTTON"..4)
-    btn4.text:SetText(btn_hotkey4)
-
-btn4:SetAttribute("type", "action");
-
-btn5:SetAttribute("action", 5);
-local btn5_icon = btn5:CreateTexture("myButton5","OVERLAY")
-
-btn5:SetNormalTexture(GetActionTexture(5))
-btn5:GetNormalTexture():SetScale(0.1) 
-btn5:SetPushedTexture(GetActionTexture(5))
-btn5:GetPushedTexture():SetScale(0.1)
-btn5_icon:SetWidth(60)
-btn5_icon:SetHeight(60)
-btn5_icon:SetPoint("CENTER")
-
-
-btn5:SetText("F")
-btn5.text = btn5:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-btn5.text:SetPoint("BOTTOM", btn5, "TOPLEFT", 5,-12)
-local btn_hotkey5 = GetBindingKey("ACTIONBUTTON"..5)
-
-
-btn5:SetAttribute("type", "action");
-
-
-
-
-
-
- 
-
-    
-    if GetShapeshiftForm() == 0  or GetShapeshiftForm() == 5 or GetShapeshiftForm() == 6 or GetShapeshiftForm() == 3 then
-    alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    btn:SetAttribute("action", 1);
-
-    btn:SetNormalTexture(GetActionTexture(1))
-    btn:SetPushedTexture(GetActionTexture(1))
-        if (not btn:GetNormalTexture() == nil ) then
-            btn:GetNormalTexture():SetScale(0.1)
-            btn:GetPushedTexture():SetScale(0.1) 
-        end 
-    btn:SetAttribute("type", "action");
-    btn:SetText("Q")
-
-    btn2:SetAttribute("action", 2);
-
-    btn2:SetNormalTexture(GetActionTexture(2))
-    btn2:SetPushedTexture(GetActionTexture(2))
-        if (not btn2:GetNormalTexture() == nil ) then
-            btn2:GetNormalTexture():SetScale(0.1)
-            btn2:GetPushedTexture():SetScale(0.1) 
-        end
-    btn2:SetAttribute("type", "action");
-    btn2:SetText("E")
-
-
-    btn3:SetAttribute("action", 3);
-    btn3:SetNormalTexture(GetActionTexture(3))
-    btn3:SetPushedTexture(GetActionTexture(3))
-        if (not btn3:GetNormalTexture() == nil ) then
-            btn3:GetNormalTexture():SetScale(0.1)
-            btn3:GetPushedTexture():SetScale(0.1) 
-        end
-    btn3:SetAttribute("type", "action");
-    btn3:SetText("R")
-
-
-
-    btn4:SetAttribute("action", 4);
-    btn4:SetNormalTexture(GetActionTexture(4))
-    btn4:SetPushedTexture(GetActionTexture(4))
-        if (not btn4:GetNormalTexture() == nil ) then
-            btn4:GetNormalTexture():SetScale(0.1)
-            btn4:GetPushedTexture():SetScale(0.1) 
-        end
-    btn4:SetAttribute("type", "action");
-    btn4:SetText("T")
-
-    btn5:SetAttribute("action", 5);
-
-    btn5:SetNormalTexture(GetActionTexture(5))
-    btn5:SetPushedTexture(GetActionTexture(5))
-        if (not btn5:GetNormalTexture() == nil ) then
-            btn5:GetNormalTexture():SetScale(0.1)
-            btn5:GetPushedTexture():SetScale(0.1) 
-        end
-    btn5:SetAttribute("type", "action");
-    btn5:SetText("F")
-
-
-    elseif GetShapeshiftForm() == 4 then
-        alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-        alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-        shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-        shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-        ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-        ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    
-        btn:SetAttribute("action", 37);
-
-        btn:SetNormalTexture(GetActionTexture(37))
-        btn:SetPushedTexture(GetActionTexture(37))
-            if (not btn:GetNormalTexture() == nil ) then
-                btn:GetNormalTexture():SetScale(0.1)
-                btn:GetPushedTexture():SetScale(0.1) 
-            end 
-        btn:SetAttribute("type", "action");
-        btn:SetText("Q")
-    
-        btn2:SetAttribute("action", 38);
-
-        btn2:SetNormalTexture(GetActionTexture(38))
-        btn2:SetPushedTexture(GetActionTexture(38))
-            if (not btn2:GetNormalTexture() == nil ) then
-                btn2:GetNormalTexture():SetScale(0.1)
-                btn2:GetPushedTexture():SetScale(0.1) 
-            end
-        btn2:SetAttribute("type", "action");
-        btn2:SetText("E")
-
-    
-        btn3:SetAttribute("action", 39);
-        btn3:SetNormalTexture(GetActionTexture(39))
-        btn3:SetPushedTexture(GetActionTexture(39))
-            if (not btn3:GetNormalTexture() == nil ) then
-                btn3:GetNormalTexture():SetScale(0.1)
-                btn3:GetPushedTexture():SetScale(0.1) 
-            end
-        btn3:SetAttribute("type", "action");
-        btn3:SetText("R")
-    
-    
-    
-        btn4:SetAttribute("action", 40);
-        btn4:SetNormalTexture(GetActionTexture(40))
-        btn4:SetPushedTexture(GetActionTexture(40))
-            if (not btn4:GetNormalTexture() == nil ) then
-                btn4:GetNormalTexture():SetScale(0.1)
-                btn4:GetPushedTexture():SetScale(0.1) 
-            end
-        btn4:SetAttribute("type", "action");
-        btn4:SetText("T")
-    
-        btn5:SetAttribute("action", 41);
- 
-        btn5:SetNormalTexture(GetActionTexture(41))
-        btn5:SetPushedTexture(GetActionTexture(41))
-            if (not btn5:GetNormalTexture() == nil ) then
-                btn5:GetNormalTexture():SetScale(0.1)
-                btn5:GetPushedTexture():SetScale(0.1) 
-            end
-        btn5:SetAttribute("type", "action");
-        btn5:SetText("F")
-    
-
-    
-
-  
-    else
-    end  
-end ]]
 
 end 
 
@@ -1008,96 +329,7 @@ if (englishClass == "DRUID") then
 
 
 
---[[ if state == 1 and (key == "LALT" or key == "RALT") then
-alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Down.blp")
-alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);   
-shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
 
-
-
-elseif state == 1 and (key == "LSHIFT" or key == "RSHIFT") then
-alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);   
-shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Down.blp")
-shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-
-
-
-elseif state == 1 and (key == "LCTRL" or key == "RCTRL") then
-ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Down.blp")
-ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-
-
-
-
-else
-ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-
-end 
- elseif(englishClass == "PALADIN") then
-        if state == 1 and (key == "LALT" or key == "RALT") then
-            alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Down.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);   
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);
-
-    
-    elseif state == 1 and (key == "LSHIFT" or key == "RSHIFT") then
-    alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);   
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Down.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-
-
-    
-    elseif state == 1 and (key == "LCTRL" or key == "RCTRL") then
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Down.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-
-   
-    
-    
-else
-    ctrl:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    ctrl:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-    shift:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    shift:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-    alt:SetNormalTexture("interface\\Buttons\\UI-Panel-Button-Up.blp")
-    alt:GetNormalTexture():SetTexCoord(0,0.625,0,0.6875);  
-
-
-    end ]]
 
 end
 end
@@ -1163,17 +395,20 @@ function update()
 
 
 
- MainMenuBarArtFrameBackground:Hide()
- MainMenuBarArtFrame.LeftEndCap:Hide()
- MainMenuBarArtFrame.PageNumber:Hide()
- MainMenuBarArtFrame.RightEndCap:Hide()
+ --MainMenuBarArtBackground:Hide()
+ --MainMenuBarArtFrame.LeftEndCap:Hide()
+ --MainMenuBarArtFrame.PageNumber:Hide()
+ --MainMenuBarArtFrame.RightEndCap:Hide()
  --AchievementMicroButton:Hide()
-  ActionBarDownButton:Hide()
- ActionBarUpButton:Hide() 
- --ActionButton1:SetParent(_G['myActionBar'])
+  --ActionBarDownButton:Hide()
+ -- ActionBarUpButton:Hide() 
+ActionButton1:SetParent(_G['myActionBar'])
+MainMenuBar.ActionBarPageNumber:Hide();
+MainMenuBar.EndCaps:Hide();
+MainMenuBar.BorderArt:Hide(); 
+MainMenuBar.Background:Hide(); 
+--MainMenuBar:SetParent(_G['myActionBar'])
 
-
- 
  if(IsShiftKeyDown())then
 
     
@@ -1234,7 +469,7 @@ end
  MultiBarLeftButton4:Hide()
  MultiBarLeftButton5:Hide()
 
-
+NoLoopMover(1,2,3,4,5,1)
  
 end
 
@@ -1339,27 +574,27 @@ function NoLoopMover(a,b,c,d,e,barnum)
         if(a ~= nil) then
             _G["ActionButton"..a]:SetParent(frame,"CENTER")
             _G["ActionButton"..a]:ClearAllPoints()
-            _G["ActionButton"..a]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()+4) - (_G['btn']:GetWidth()+4),0)
+            _G["ActionButton"..a]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()+4) - (_G['btn']:GetWidth()+5),0)
         end
         if(b ~= nil)then
             _G["ActionButton"..b]:SetParent(frame,"CENTER")
             _G["ActionButton"..b]:ClearAllPoints()
-            _G["ActionButton"..b]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*2+4*2) - (_G['btn']:GetWidth()+4),0)
+            _G["ActionButton"..b]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*2+4*2) - (_G['btn']:GetWidth()+10),0)
         end
         if(c ~= nil)then
             _G["ActionButton"..c]:SetParent(frame,"CENTER")
             _G["ActionButton"..c]:ClearAllPoints()
-            _G["ActionButton"..c]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*3+4*3) - (_G['btn']:GetWidth()+4),0)
+            _G["ActionButton"..c]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*3+4*3) - (_G['btn']:GetWidth()+14),0)
         end
         if(d ~= nil)then
             _G["ActionButton"..d]:SetParent(frame,"CENTER")
             _G["ActionButton"..d]:ClearAllPoints()
-            _G["ActionButton"..d]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*4+4*4) - (_G['btn']:GetWidth()+4),0)
+            _G["ActionButton"..d]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*4+4*4) - (_G['btn']:GetWidth()+18),0)
         end
         if(e ~= nil)then
             _G["ActionButton"..e]:SetParent(frame,"CENTER")
             _G["ActionButton"..e]:ClearAllPoints()
-            _G["ActionButton"..e]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*5+4*5) - (_G['btn']:GetWidth()+4),0)
+            _G["ActionButton"..e]:SetPoint("CENTER", "myButton", (_G['btn']:GetWidth()*5+4*5) - (_G['btn']:GetWidth()+22),0)
         end
     elseif(barnum == 3)then
             
