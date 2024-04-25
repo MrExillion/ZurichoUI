@@ -15,6 +15,9 @@
     <Content Include=".gitignore" />
     <Content Include="Changelog.txt" />
     <Content Include="DialogFrame-Corners-ZurichoUIGolden.blp" />
+    <Content Include="LibEmbeds.xml">
+      <SubType>Frame</SubType>
+    </Content>
     <Content Include="Libs\AceAddon-3.0\AceAddon-3.0.lua">
       <SubType>Code</SubType>
     </Content>
@@ -192,6 +195,12 @@
     <Content Include="Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml">
       <SubType>Frame</SubType>
     </Content>
+    <Content Include="Libs\LibEditModeOverride-1.0\LibEditModeOverride.lua">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Libs\LibEditModeOverride-1.0\LibEditModeOverride.xml">
+      <SubType>Frame</SubType>
+    </Content>
     <Content Include="Libs\LibSharedMedia-3.0\lib.xml">
       <SubType>Code</SubType>
     </Content>
@@ -337,6 +346,7 @@
     <Folder Include="Libs\AceTimer-3.0\" />
     <Folder Include="Libs\CallbackHandler-1.0\" />
     <Folder Include="Libs\CallbackHandler-1.0\AceEvent-3.0\" />
+    <Folder Include="Libs\LibEditModeOverride-1.0\" />
     <Folder Include="Libs\LibSharedMedia-3.0\" />
     <Folder Include="Libs\LibStub\" />
   </ItemGroup>

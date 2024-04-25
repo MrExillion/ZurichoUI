@@ -1,7 +1,11 @@
 
-local unitHandlerFrame = CreateFrame('Frame', 'unitHandleFrame', UIParent)
+local unitHandlerFrame = CreateFrame('Frame', 'unitHandleFrame', UIParent, BackdropTemplateMixin)
 
 --local hashCheck
+local Override = LibStub("LibEditModeOverride-1.0");
+
+
+
 
 
 function ApplyZurichoBordersToZPerl()
@@ -247,19 +251,26 @@ _G["XPerl_Globals"]:HookScript("OnUpdate", function()
 
 end)
 end
+
+
 _G["PlayerFrame"]:HookScript("OnUpdate", function()
-    if moving or plaMoved == true then
+    if moving or plaMoved == true  or not Override:AreLayoutsLoaded() then
         return
     end
     moving = true
+    
+   
+
+
     PlayerFrame:SetMovable(true)
     PlayerFrame:SetUserPlaced(true)
-    PlayerFrame:ClearAllPoints()
-    PlayerFrame:SetPoint("BOTTOM", nil, "BOTTOM",-260,180)
+    --PlayerFrame:ClearAllPoints()
+    Override:ReanchorFrame(PlayerFrame,"BOTTOM", nil, "BOTTOM",-260,180)
     PlayerFrame:SetScale(1.0) -- optional
     --TalkingHeadFrame:SetWidth() -- optional
     --TalkingHeadFrame:SetHeight(150) -- optional
     --PlayerFrame:SetMovable(false)
+    Override:ApplyChanges();
     moving = nil
     plaMoved = true
 
@@ -267,18 +278,20 @@ _G["PlayerFrame"]:HookScript("OnUpdate", function()
 end)
 _G["TargetFrame"]:HookScript("OnUpdate", function()
 --hooksecurefunc("TargetFrame_OnLoad", function()
-    if moving or tarMoved == true then
+    if moving or tarMoved == true or not Override:AreLayoutsLoaded() then
         return
     end
     moving = true
     TargetFrame:SetMovable(true)
     TargetFrame:SetUserPlaced(true)
     TargetFrame:ClearAllPoints()
-    TargetFrame:SetPoint("BOTTOM", nil, "BOTTOM",260,180)
+
+    Override:ReanchorFrame(TargetFrame,"BOTTOM", nil, "BOTTOM",260,180)
     TargetFrame:SetScale(1.0) -- optional
     --TalkingHeadFrame:SetWidth() -- optional
     --TalkingHeadFrame:SetHeight(150) -- optional
     --TargetFrame:SetMovable(false)
+    Override:ApplyChanges();
     moving = nil
     tarMoved = true
    --print("Should be setting point to new position")

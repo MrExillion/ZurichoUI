@@ -150,8 +150,8 @@ xpwheel:RegisterEvent("PLAYER_LEVEL_UP");
 xpwheel:RegisterEvent("ENABLE_XP_GAIN")
 xpwheel:RegisterEvent("PET_BATTLE_OPENING_START");
 xpwheel:RegisterEvent("PET_BATTLE_OVER");
---PVPQueueFrame.HonorInset.CasualPanel.HonorLevelDisplay
-DropDownList1Button1:HookScript("OnClick", function() xpwheel:SetXPBar() end)
+
+DropDownList1Button1:HookScript("OnClick", function() if(PVPQueueFrame) then if(PVPQueueFrame.HonorInset.CasualPanel.HonorLevelDisplay:IsShown()) then xpwheel:SetXPBar() end end end)
 
 
 

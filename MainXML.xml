@@ -4,7 +4,7 @@
    <Frame name="MyAddon_MyFrame" parent="UIParent" toplevel="true" enableMouse="false">
 	   <Scripts>
     <OnLoad> self:RegisterEvent("PLAYER_ENTERING_WORLD"); </OnLoad>
-   <OnEvent> print("Hello World! Hello " .. event); </OnEvent>
+   <!--OnEvent> print("Hello World! Hello " .. event); </OnEvent-->
 	   </Scripts>
     
      <Size>

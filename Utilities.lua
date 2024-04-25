@@ -1,3 +1,7 @@
+
+
+local Override = LibStub("LibEditModeOverride-1.0")
+
 local frame = CreateFrame('Frame', 'myUtilityBar', UIParent, BackdropTemplateMixin and "BackdropTemplate")
 frame:SetPoint("RIGHT",0,-UIParent:GetHeight()/2 + 48)
 frame:SetWidth(MicroButtonAndBagsBar:GetWidth()+100)
@@ -72,14 +76,14 @@ ZoneAbilityFrame:HookScript("OnUpdate", function(self, ...)
         
 end)
 
-
-
+ _G['PetActionBar']:SetAttribute("layoutParent", nil)
+ _G['MultiBarBottomRight']:SetAttribute("layoutParent", nil)
 local localizedClass, englishClass, classIndex = UnitClass("Player");
 
-MicroButtonAndBagsBar:SetParent(frame)
-MicroButtonAndBagsBar:ClearAllPoints()
-MicroButtonAndBagsBar:SetPoint(frame:GetPoint(),frame,0,frame:GetHeight()-10)
-MicroButtonAndBagsBar:GetChildren():SetFrameLevel(MicroButtonAndBagsBar:GetFrameLevel()+1)
+MicroMenuContainer:SetParent(frame)
+MicroMenuContainer:ClearAllPoints()
+MicroMenuContainer:SetPoint(frame:GetPoint(),frame,0,frame:GetHeight()-10)
+MicroMenuContainer:GetChildren():SetFrameLevel(MicroButtonAndBagsBar:GetFrameLevel()+1)
 
 MicroButtonAndBagsBar:SetFrameLevel(1)
 local zPagingFrame = CreateFrame("FRAME", nil, nil, "SecureHandlerStateTemplate");
@@ -95,9 +99,22 @@ for i = 1,5 do
 end
 
 function PetActionBarMover() 
+PetActionBar:SetParent(myActionBar);
+if(PetActionBar.systemInfo.anchorInfo.relativeTo ~= "myActionBar" and not EditModeManagerFrame:IsShown()) then
+if(not Override:AreLayoutsLoaded()) then 
+	Override:LoadLayouts();
+end
+Override:ReanchorFrame(PetActionBar,"BOTTOMLEFT", "myActionBar", "TOPLEFT", -(PetActionBar:GetWidth()/10),0);
+Override:ApplyChanges();
+--PetActionBar:ClearAllPoints();
 
-PetActionBar:ClearAllPoints();
-PetActionBar:SetPoint("BOTTOMLEFT", "myActionBar", "TOPLEFT", -(PetActionBar:GetWidth()/10),0);
+--PetActionBar:SetPoint("BOTTOMLEFT", "myActionBar", "TOPLEFT", -(PetActionBar:GetWidth()/10),0);
+--PetActionBar.systemInfo.anchorInfo.offsetX = -(PetActionBar:GetWidth()/10);
+--PetActionBar.systemInfo.anchorInfo.offsetY = 0;
+--PetActionBar.systemInfo.anchorInfo.point = "BOTTOMLEFT";
+--PetActionBar.systemInfo.anchorInfo.relativePoint = "TOPLEFT";
+PetActionBar.systemInfo.anchorInfo.relativeTo = "myActionBar";
+end
 
 for i = 1,5 do
     --_G["PetActionButton"..6-i]:ClearAllPoints();
@@ -110,27 +127,27 @@ for i = 1,5 do
 
 end
 end
-
+PetActionBar:HookScript("OnUpdate",function() PetActionBarMover() end);
 function UtilityMover()
 for i = 6,12 do
 
-    _G["MultiBarBottomRightButton"..i]:ClearAllPoints()
-    _G["MultiBarBottomLeftButton"..i]:ClearAllPoints()
-    _G["MultiBarRightButton"..i]:ClearAllPoints()
-    _G["MultiBarLeftButton"..i]:ClearAllPoints()
+    _G["MultiBarBottomRightButtonContainer"..i]:ClearAllPoints()
+    _G["MultiBarBottomLeftButtonContainer"..i]:ClearAllPoints()
+    _G["MultiBarRightButtonContainer"..i]:ClearAllPoints()
+    _G["MultiBarLeftButtonContainer"..i]:ClearAllPoints()
     
 
-    _G["MultiBarBottomRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-17)
-    _G["MultiBarBottomLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-26)
-    _G["MultiBarRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-17)
-    _G["MultiBarLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-26)
+    _G["MultiBarBottomRightButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*1-frame:GetHeight()/2-17)
+    _G["MultiBarBottomLeftButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*2.2-frame:GetHeight()/2-26)
+    _G["MultiBarRightButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*1-frame:GetHeight()/2-17)
+    _G["MultiBarLeftButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*2.2-frame:GetHeight()/2-26)
 
 
 
-    _G["MultiBarBottomRightButton"..i]:Hide()
-    _G["MultiBarBottomLeftButton"..i]:Hide()
-    _G["MultiBarRightButton"..i]:Show()
-    _G["MultiBarLeftButton"..i]:Show()
+    _G["MultiBarBottomRightButtonContainer"..i]:Hide()
+    _G["MultiBarBottomLeftButtonContainer"..i]:Hide()
+    _G["MultiBarRightButtonContainer"..i]:Show()
+    _G["MultiBarLeftButtonContainer"..i]:Show()
 
     _G["ActionButton"..i]:Hide() 
 end
@@ -138,23 +155,23 @@ end
 
 for i = 6,12 do
 
-    _G["MultiBarBottomRightButton"..i]:ClearAllPoints()
-    _G["MultiBarBottomLeftButton"..i]:ClearAllPoints()
-    _G["MultiBarRightButton"..i]:ClearAllPoints()
-    _G["MultiBarLeftButton"..i]:ClearAllPoints()
+    _G["MultiBarBottomRightButtonContainer"..i]:ClearAllPoints()
+    _G["MultiBarBottomLeftButtonContainer"..i]:ClearAllPoints()
+    _G["MultiBarRightButtonContainer"..i]:ClearAllPoints()
+    _G["MultiBarLeftButtonContainer"..i]:ClearAllPoints()
     
 
-    _G["MultiBarBottomRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
-    _G["MultiBarBottomLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
-    _G["MultiBarRightButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
-    _G["MultiBarLeftButton"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButton1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
+    _G["MultiBarBottomRightButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*1-frame:GetHeight()/2-8)
+    _G["MultiBarBottomLeftButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
+    _G["MultiBarRightButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*1-frame:GetHeight()/2-8)
+    _G["MultiBarLeftButtonContainer"..i]:SetPoint(frame:GetPoint(),frame,-_G["MultiBarBottomRightButtonContainer1"]:GetWidth()*(i-6)-8,_G["MultiBarBottomRightButtonContainer1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
 
 
 
-    _G["MultiBarBottomRightButton"..i]:Hide()
-    _G["MultiBarBottomLeftButton"..i]:Hide()
-    _G["MultiBarRightButton"..i]:Show()
-    _G["MultiBarLeftButton"..i]:Show()
+    _G["MultiBarBottomRightButtonContainer"..i]:Hide()
+    _G["MultiBarBottomLeftButtonContainer"..i]:Hide()
+    _G["MultiBarRightButtonContainer"..i]:Show()
+    _G["MultiBarLeftButtonContainer"..i]:Show()
 
     _G["ActionButton"..i]:Hide() 
 end
@@ -165,10 +182,10 @@ frame:SetFrameLevel(0)
 
 function UtilitySet1()
     for i = 6,12 do
-        _G["MultiBarBottomRightButton"..i]:Hide()
-        _G["MultiBarBottomLeftButton"..i]:Hide()
-        _G["MultiBarRightButton"..i]:Show()
-        _G["MultiBarLeftButton"..i]:Show()
+        _G["MultiBarBottomRightButtonContainer"..i]:Hide()
+        _G["MultiBarBottomLeftButtonContainer"..i]:Hide()
+        _G["MultiBarRightButtonContainer"..i]:Show()
+        _G["MultiBarLeftButtonContainer"..i]:Show()
         ActionButton6:Hide()
         ActionButton7:Hide()
 		ActionButton8:Hide()
@@ -181,10 +198,10 @@ end
 function UtilitySet2()
     for i = 6,12 do
     
-        _G["MultiBarBottomRightButton"..i]:Show()
-        _G["MultiBarBottomLeftButton"..i]:Show()
-        _G["MultiBarRightButton"..i]:Hide()
-        _G["MultiBarLeftButton"..i]:Hide()
+        _G["MultiBarBottomRightButtonContainer"..i]:Show()
+        _G["MultiBarBottomLeftButtonContainer"..i]:Show()
+        _G["MultiBarRightButtonContainer"..i]:Hide()
+        _G["MultiBarLeftButtonContainer"..i]:Hide()
         ActionButton6:Hide()
         ActionButton7:Hide()
 		ActionButton8:Hide()
@@ -225,14 +242,14 @@ function UtilitySet2()
     for i = 1,5 do
             -- Workaround for visible actionbars --- This works well, though not sure what happens the moment someone changes aspect ratio or place a monitor below the main screen
 
-            _G["MultiBarBottomRightButton"..i]:ClearAllPoints()
-            _G["MultiBarBottomLeftButton"..i]:ClearAllPoints()
-            _G["MultiBarRightButton"..i]:ClearAllPoints()
-            _G["MultiBarLeftButton"..i]:ClearAllPoints()
-            _G["MultiBarBottomRightButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
-            _G["MultiBarBottomLeftButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
-            _G["MultiBarRightButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
-            _G["MultiBarLeftButton"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarBottomRightButtonContainer"..i]:ClearAllPoints()
+            _G["MultiBarBottomLeftButtonContainer"..i]:ClearAllPoints()
+            _G["MultiBarRightButtonContainer"..i]:ClearAllPoints()
+            _G["MultiBarLeftButtonContainer"..i]:ClearAllPoints()
+            _G["MultiBarBottomRightButtonContainer"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarBottomLeftButtonContainer"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarRightButtonContainer"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
+            _G["MultiBarLeftButtonContainer"..i]:SetPoint("BOTTOM",nil,"BOTTOM",0,-500)
     end
 
 end
@@ -457,10 +474,10 @@ end);
         if event == "PLAYER_ENTERING_WORLD" then
 
              for i = 6,12 do
-                _G["MultiBarBottomRightButton"..i]:Hide()
-                _G["MultiBarBottomLeftButton"..i]:Hide()
-                _G["MultiBarRightButton"..i]:Show()
-                _G["MultiBarLeftButton"..i]:Show()
+                _G["MultiBarBottomRightButtonContainer"..i]:Hide()
+                _G["MultiBarBottomLeftButtonContainer"..i]:Hide()
+                _G["MultiBarRightButtonContainer"..i]:Show()
+                _G["MultiBarLeftButtonContainer"..i]:Show()
             end 
         
             for i = 1,5 do
@@ -470,7 +487,7 @@ end);
                 _G["PetActionButton"..11-i]:SetPoint(_G["PetActionBar"]:GetPoint(),_G["PetActionBar"],-_G["PetActionButton1"]:GetWidth()*(i-11)-108,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/6-8)
                 --_G["PetActionButton"..6-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*1-frame:GetHeight()/2-8)
                 --_G["PetActionButton"..11-i]:SetPoint(_G["PetActionBarFrame"]:GetPoint(),_G["PetActionBarFrame"],-_G["PetActionButton1"]:GetWidth()*(i-6)-8,_G["PetActionButton1"]:GetHeight()*2.2-frame:GetHeight()/2-8)
-            
+                
             end
 
 

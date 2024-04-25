@@ -1,7 +1,7 @@
 
 
 local media = LibStub("LibSharedMedia-3.0")
-
+local Override = LibStub("LibEditModeOverride-1.0")
 media:Register("border", "ZurichoUI SilverBorder", "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUISilver1")
 media:Register("border", "ZurichoUI GoldBorder", "Interface\\AddOns\\ZurichosUI\\UI-DialogBox-Border-ZurichoUIGolden")
 
@@ -18,7 +18,7 @@ end
      --UIPARENT_MANAGED_FRAME_POSITIONS['MultiBarRight'] = nil
        --_G['MainMenuBar']:SetAttribute("uiparent-manage", false);
 _G['MainMenuBar']:SetAttribute("layoutParent", nil)
- 
+
 local frame = CreateFrame('Frame', 'myActionBar', UIParent, BackdropTemplateMixin and "BackdropTemplate")
 frame:SetPoint("CENTER",0,-UIParent:GetHeight()/2 + 150)
 frame:SetWidth(250)
@@ -405,8 +405,9 @@ function update()
 ActionButton1:SetParent(_G['myActionBar'])
 MainMenuBar.ActionBarPageNumber:Hide();
 MainMenuBar.EndCaps:Hide();
-MainMenuBar.BorderArt:Hide(); 
-MainMenuBar.Background:Hide(); 
+MainMenuBar.BorderArt:Hide();
+--MainMenuBar.BorderArt:Hide(); 
+--MainMenuBar.Background:Hide(); 
 --MainMenuBar:SetParent(_G['myActionBar'])
 
  if(IsShiftKeyDown())then
@@ -696,7 +697,8 @@ hooksecurefunc("TalkingHeadFrame_PlayCurrent", function()
     TalkingHeadFrame:SetMovable(true)
     TalkingHeadFrame:SetUserPlaced(true)
     TalkingHeadFrame:ClearAllPoints()
-    TalkingHeadFrame:SetPoint("BOTTOM", UIParent, "BOTTOM",400,0)
+   Override:ReanchorFrame(TalkingHeadFrame,"BOTTOM", UIParent, "BOTTOM",400,0)
+   Override:ApplyLayout();
     TalkingHeadFrame:SetScale(1.0) -- optional
     --TalkingHeadFrame:SetWidth() -- optional
     --TalkingHeadFrame:SetHeight(150) -- optional 
@@ -708,7 +710,7 @@ end)
 end
 end
 frame:RegisterEvent("ADDON_LOADED")
-frame:HookScript("OnEvent", frame.OnEvent)
+--frame:HookScript("OnEvent", frame.OnEvent)
 
 
 
